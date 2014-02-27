@@ -73,11 +73,16 @@ body{
   
 .home{
 	text-align:center;
-	height:356px;
+	height:771px;
 }
 
 .home h1{
 	font-size:8em;
 	line-height:1em;
 	display:none;
+}
+
+#vincent{
+	margin-top:10px;
+	opacity:0;
 }
