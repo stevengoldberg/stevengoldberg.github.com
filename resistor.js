@@ -5,8 +5,7 @@
 var numTweets = 20;
 
 function handleTweets(tweets){
-    //var current = Math.floor(Math.random()*numTweets);
-	var current = 0;
+    var current = Math.floor(Math.random()*numTweets);
     var element = document.getElementById('tweet');
 	var initial = true;
     $('#tweet ul li').append(tweets[current]);

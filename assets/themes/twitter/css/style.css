@@ -92,21 +92,26 @@ a{
 }
 
 #tweet{
+	position:relative;
 	text-align:left;
 	font-family:monospace;
 	margin:auto;
-	background-image:url('/images/minimoog.png');
-	width:700px;
-	height:421px;
+	width:100%;
 }
 
 #tweet ul{
+	position:absolute;
 	list-style:none;
-	width:350px;
-	margin-left:275px;
-	padding-top:35px;
+	width:50%;
+	left:35%;
+	top:9%;
 }
 
 #tweet a{
 	padding:0 5px;
+}
+
+#tweet img{
+	width:100%;
+	height:100%;
 }
