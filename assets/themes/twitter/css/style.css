@@ -7,6 +7,10 @@ a{
 	color:#66B8E0;
 }
 
+a:hover{
+	text-decoration:none;
+}
+
 /* Custom container */
 .container-narrow {
   margin: 0 auto;
@@ -86,10 +90,7 @@ a{
 	opacity:0;
 }
 
-#vincent{
-	margin-top:10px;
-	opacity:0;
-}
+/* Minimoog Tweet Widget */
 
 #tweet{
 	position:relative;
@@ -99,12 +100,13 @@ a{
 	width:100%;
 }
 
-#tweet ul{
+#text{
 	position:absolute;
 	list-style:none;
-	width:50%;
-	left:35%;
+	width:42%;
+	left:38%;
 	top:9%;
+	overflow:hidden;
 }
 
 #tweet a{
@@ -114,4 +116,58 @@ a{
 #tweet img{
 	width:100%;
 	height:100%;
+}
+
+#buttons{
+	position:absolute;
+	top:7%;
+	right:4%;
+}
+
+#buttons a{
+	display:block;
+	text-align:center;
+	padding: 3px 0;
+}
+
+a.twitter_reply_icon:after{
+	content:url('/images/blue_switch.png');
+	position:relative;
+	top:18px;
+	right:40px;
+}
+
+a.twitter_fav_icon:after{
+	content:url('/images/blue_switch.png');
+	position:relative;
+	top:18px;
+	right:45px;
+}
+
+a.twitter_retweet_icon:after{
+	content:url('/images/red_switch.png');
+	position:relative;
+	top:18px;
+	right:45px;
+}
+
+a.twitter_reply_icon:hover:after{
+	content:url('/images/blue_switch_flip.png');
+	position:relative;
+	top:18px;
+	right:40px;
+}
+
+a.twitter_fav_icon:hover:after{
+	content:url('/images/blue_switch_flip.png');
+	position:relative;
+	top:18px;
+	right:45px;
+}
+
+a.twitter_retweet_icon:hover:after{
+	content:url('/images/red_switch_flip.png');
+	position:relative;
+	top:18px;
+	right:45px;
 }

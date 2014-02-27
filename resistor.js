@@ -6,18 +6,26 @@ var numTweets = 20;
 
 function handleTweets(tweets){
     var current = Math.floor(Math.random()*numTweets);
-    var element = document.getElementById('tweet');
 	var initial = true;
-    $('#tweet ul li').append(tweets[current]);
+	splitTweet(tweets[current]);
 	current = (current + 1) % numTweets;
 	window.setInterval(function() {
-		$('#tweet ul').fadeOut(500, function() {
-			$('#tweet ul li').empty();
-			$('#tweet ul li').append(tweets[current]);
+		$('#text').fadeOut(500, function() {
+			$('#text, #buttons').empty();
+			splitTweet(tweets[current]);
 			current = (current + 1) % numTweets;
-			$('#tweet ul').fadeIn(500);
+			$('#text').fadeIn(500);
 		});
     }, 10000);
+}
+
+function splitTweet(tweet){
+	var end = tweet.length - 1;
+	var search = tweet.search('<p class="interact">');
+	var tweetText = tweet.slice(0,search);
+	var buttons = tweet.slice(search, end);	
+    $('#text').append(tweetText);
+	$('#buttons').append(buttons);
 }
 
 $(document).ready(function() {
