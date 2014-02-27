@@ -1,3 +1,8 @@
+body{
+	background-color:#000000;
+	color:#E6E6E6;
+}
+
 /* Custom container */
 .container-narrow {
   margin: 0 auto;
@@ -63,3 +68,15 @@
   background: #57A957;
   border: 1px solid #4c964d;
   color: #FFF; }
+  
+/* Home Page */
+  
+.home{
+	text-align:center;
+}
+
+.home h1{
+	font-size:8em;
+	line-height:1em;
+	display:none;
+}
