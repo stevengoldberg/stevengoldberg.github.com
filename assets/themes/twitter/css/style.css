@@ -106,7 +106,7 @@ a:hover{
 	width:42%;
 	left:38%;
 	top:9%;
-	overflow:hidden;
+	overflow:hiddenl;
 }
 
 #tweet a{
@@ -128,6 +128,18 @@ a:hover{
 	display:block;
 	text-align:center;
 	padding: 3px 0;
+}
+
+.twitter-follow-button{
+	position:absolute;
+	left:50%;
+	top:52%;
+	box-shadow:-1px 1px 1px 1px #684235;
+	opacity:.8;
+}
+
+.twitter-follow-button:hover{
+	opacity:1;
 }
 
 a.twitter_reply_icon:after{
