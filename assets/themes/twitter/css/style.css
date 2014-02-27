@@ -3,6 +3,10 @@ body{
 	color:#E6E6E6;
 }
 
+a{
+	color:#66B8E0;
+}
+
 /* Custom container */
 .container-narrow {
   margin: 0 auto;
@@ -73,16 +77,36 @@ body{
   
 .home{
 	text-align:center;
-	height:771px;
+	/*height:771px;*/
 }
 
-.home h1{
+#RE, #SIS, #TOR{
 	font-size:8em;
 	line-height:1em;
-	display:none;
+	opacity:0;
 }
 
 #vincent{
 	margin-top:10px;
 	opacity:0;
+}
+
+#tweet{
+	text-align:left;
+	font-family:monospace;
+	margin:auto;
+	background-image:url('/images/minimoog.png');
+	width:700px;
+	height:421px;
+}
+
+#tweet ul{
+	list-style:none;
+	width:350px;
+	margin-left:275px;
+	padding-top:35px;
+}
+
+#tweet a{
+	padding:0 5px;
 }
