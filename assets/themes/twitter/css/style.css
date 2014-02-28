@@ -125,8 +125,8 @@ p.timePosted{
 
 #buttons{
 	position:absolute;
-	top:7%;
-	right:4%;
+	top:6%;
+	right:3.5%;
 }
 
 #buttons a{
@@ -187,4 +187,45 @@ a.twitter_retweet_icon:hover:after{
 	position:relative;
 	top:18px;
 	right:45px;
+}
+
+#minimoog_small{
+	display:none;
+}
+
+@media screen and (max-width:700px){
+	#RE, #SIS, #TOR{
+		font-size:5em;
+	}
+	#minimoog{
+		display:none;
+	}
+	#minimoog_small{
+		display:block;
+	}
+	#text{
+		font-size:.9em;
+		line-height:.9em;
+		left:5%;
+		width:68%;
+	}
+	#text p{
+		margin-bottom:.5em;
+	}
+	#buttons{
+		text-align:left;
+		font-size:.7em;
+		right:0%;
+		top:5.5%;
+	}
+	#buttons a{
+		padding:0;
+	}
+	#buttons a:after{
+		-webkit-transform: scale(.75,.75);
+	}
+	.twitter-follow-button{
+		left:30%;
+		top:51%;
+	}
 }
