@@ -39,6 +39,6 @@ $(document).ready(function() {
 	});
 //	SC.oEmbed("http://soundcloud.com/resistorsings/vincent-van-gogh-1", {color: '#E6E6E6'}, document.getElementById('vincent'));
 	
-	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, false, undefined, true, handleTweets);
+	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
 	
 });

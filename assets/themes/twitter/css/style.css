@@ -107,6 +107,11 @@ a:hover{
 	left:38%;
 	top:9%;
 	overflow:hidden;
+	max-height:35%;
+}
+
+p.timePosted{
+	color:#B8B8B8;
 }
 
 #tweet a{
