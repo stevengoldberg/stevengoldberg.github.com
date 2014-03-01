@@ -1,19 +1,20 @@
-//SC.initialize({
-//   client_id: "67f2822a454cafa2b800fc88cb5c0518",
-//  });
+SC.initialize({
+   client_id: "67f2822a454cafa2b800fc88cb5c0518",
+   redirect_uri: 'http://stevengoldberg.github.io'
+  });
 
 var numTweets = 20;
 
 function handleTweets(tweets){
-    var current = Math.floor(Math.random()*numTweets);
+    var currentTweet = Math.floor(Math.random()*numTweets);
 	var initial = true;
-	splitTweet(tweets[current]);
-	current = (current + 1) % numTweets;
+	splitTweet(tweets[currentTweet]);
+	currentTweet = (currentTweet + 1) % numTweets;
 	window.setInterval(function() {
 		$('#text').fadeOut(500, function() {
 			$('#text, #buttons').empty();
-			splitTweet(tweets[current]);
-			current = (current + 1) % numTweets;
+			splitTweet(tweets[currentTweet]);
+			currentTweet = (currentTweet + 1) % numTweets;
 			$('#text').fadeIn(500);
 		});
     }, 10000);
@@ -28,17 +29,126 @@ function splitTweet(tweet){
 	$('#buttons').append(buttons);
 }
 
+Track = function (trackId){
+    var currentTrack = "";
+
+
+    SC.stream(trackId, function(sound){
+        currentTrack = sound;
+    });
+
+    this.play = function() {
+        currentTrack.play();
+    };
+
+    this.pause = function() {
+        currentTrack.pause();
+    };
+
+    this.stop = function() {
+        currentTrack.stop();
+    };
+};
+
+Rotation = function(tracks) {
+        var currentTrack = tracks[1];
+
+        this.currentTrack = function() {
+            return currentTrack;
+        };
+
+        this.nextTrack = function () {
+            var currentIndex = tracks.indexOf(currentTrack);
+            var nextTrackIndex = (currentIndex + 1) % tracks.length;
+            var nextTrackId = tracks[nextTrackIndex];
+            currentTrack = nextTrackId;
+            return currentTrack
+        };
+		
+        this.prevTrack = function () {
+            var currentIndex = tracks.indexOf(currentTrack);
+            var prevTrackIndex = (currentIndex - 1);
+			if(prevTrackIndex<0){
+				prevTrackIndex=(tracks.length)-1;
+			}
+            var prevTrackId = tracks[prevTrackIndex];
+            currentTrack = prevTrackId;
+            return currentTrack
+        };
+    };
+
 $(document).ready(function() {
 	
 	$('#RE').fadeTo(1000, 1, function(){
 		$('#SIS').fadeTo(1000, 1, function(){
 			$('#TOR').fadeTo(1000, 1, function(){
-				//$('#vincent').fadeTo(1000, 1);
 			});
 		});
 	});
-//	SC.oEmbed("http://soundcloud.com/resistorsings/vincent-van-gogh-1", {color: '#E6E6E6'}, document.getElementById('vincent'));
-	
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
-	
+	SC.get('/users/11021442/tracks', function(songs){
+		var rotation = new Rotation(songs);
+		var currentTrack = rotation.currentTrack();
+		changeTitle(currentTrack, undefined);
+		var currentPlayingTrack = new Track(currentTrack.uri);
+		$('#play').on('click', function(e){
+			e.preventDefault();
+			currentPlayingTrack.play();
+			$('#soundcloud').addClass('.playing');
+			$('#pause').show();
+			$('#play').hide();
+		});
+
+		$('#pause').on('click', function(e){
+			e.preventDefault();
+			currentPlayingTrack.pause();
+			$('#soundcloud').addClass('.paused');
+			$('#soundcloud').removeClass('.playing');
+			$('#pause').hide();
+			$('#play').show();
+		});
+
+		$('#next').on('click', function(e){
+			e.preventDefault();
+			currentPlayingTrack.stop();
+			currentTrack = rotation.nextTrack();
+			currentPlayingTrack = new Track(currentTrack.uri);
+			changeTitle(currentTrack, true);
+			if($('#soundcloud').hasClass('.playing')){
+				$('#soundcloud').removeClass('.playing');
+				$('#pause').hide();
+				$('#play').show();
+			}
+		});
+		
+		$('#prev').on('click', function(e){
+			e.preventDefault();
+			currentPlayingTrack.stop();
+			currentTrack = rotation.prevTrack();
+			currentPlayingTrack = new Track(currentTrack.uri);
+			changeTitle(currentTrack, true);
+			if($('#soundcloud').hasClass('.playing')){
+				$('#soundcloud').removeClass('.playing');
+				$('#pause').hide();
+				$('#play').show();
+			}
+		});
+	});
 });
+
+function changeTitle(newTrack, oldTrack){
+	var titleHtml = "<a href='" + newTrack.permalink_url + "'>" + newTrack.title + "</a>"
+	if(oldTrack){
+		$('#title').fadeOut(500, function(){
+			$('#title').empty();
+			$('#title').append(titleHtml);
+			$('#title').fadeIn(500);
+		});
+	}
+	else{
+		$('#title').append(titleHtml);
+		$('#title').fadeIn(500);
+	}
+}
+
+
