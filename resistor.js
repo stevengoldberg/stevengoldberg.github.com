@@ -42,8 +42,9 @@ Track = function (trackId){
     };
 
     this.pause = function() {
-        currentTrack.pause();
+        currentTrack.togglePause();
     };
+	
 
     this.stop = function() {
         currentTrack.stop();
@@ -93,17 +94,26 @@ $(document).ready(function() {
 		var currentPlayingTrack = new Track(currentTrack.uri);
 		$('#play').on('click', function(e){
 			e.preventDefault();
-			currentPlayingTrack.play();
-			$('#soundcloud').addClass('.playing');
-			$('#pause').show();
-			$('#play').hide();
+			if($('#soundcloud').hasClass('paused')){
+				$('#soundcloud').removeClass('paused');
+				$('#soundcloud').addClass('playing');
+				currentPlayingTrack.pause();
+				$('#pause').show();
+				$('#play').hide();
+			}
+			else{
+				$('#soundcloud').addClass('playing');
+				currentPlayingTrack.play();
+				$('#pause').show();
+				$('#play').hide();
+			}
 		});
 
 		$('#pause').on('click', function(e){
 			e.preventDefault();
 			currentPlayingTrack.pause();
-			$('#soundcloud').addClass('.paused');
-			$('#soundcloud').removeClass('.playing');
+			$('#soundcloud').addClass('paused');
+			$('#soundcloud').removeClass('playing');
 			$('#pause').hide();
 			$('#play').show();
 		});
@@ -114,8 +124,8 @@ $(document).ready(function() {
 			currentTrack = rotation.nextTrack();
 			currentPlayingTrack = new Track(currentTrack.uri);
 			changeTitle(currentTrack, true);
-			if($('#soundcloud').hasClass('.playing')){
-				$('#soundcloud').removeClass('.playing');
+			if($('#soundcloud').hasClass('playing')){
+				$('#soundcloud').removeClass('playing');
 				$('#pause').hide();
 				$('#play').show();
 			}

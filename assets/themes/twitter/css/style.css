@@ -199,6 +199,8 @@ a.twitter_retweet_icon:hover:after{
 #soundcloud{
 	position:relative;
 	opacity:.9;
+	transition: opacity .5s;
+	-webkit-transition: opacity .5s;
 	margin:auto;
 }
 
@@ -207,7 +209,7 @@ a.twitter_retweet_icon:hover:after{
 }
 
 .playing{
-	opacity:1;
+	opacity:1 !important;
 }
 
 #title{
