@@ -194,6 +194,51 @@ a.twitter_retweet_icon:hover:after{
 	display:none;
 }
 
+/* Soundcloud Widget */
+
+#soundcloud{
+	position:relative;
+	opacity:.9;
+	margin:auto;
+}
+
+#tr909_small{
+	display:none;
+}
+
+.playing{
+	opacity:1;
+}
+
+#title{
+	position:absolute;
+	top:25.5%;
+	left:9%;
+	font-weight:bold;
+	font-family: 'Audiowide', bold;
+	display:none;
+	overflow:hidden;
+}
+
+#title a{
+	color:#555E5E;
+	opacity:.8;
+}
+
+#title a:hover{
+	opacity:1;
+}
+
+#controls{
+	margin-top:5px;
+}
+
+#pause{
+	display:none;
+}
+
+/* Small Screens */
+
 @media screen and (max-width:700px){
 	body{
 		padding:0;
@@ -239,36 +284,21 @@ a.twitter_retweet_icon:hover:after{
 		left:25%;
 		top:49%;
 	}
-}
-
-/* Soundcloud Widget */
-
-#soundcloud{
-	position:relative;
-}
-
-#title{
-	position:absolute;
-	top:25.5%;
-	left:9%;
-	font-weight:bold;
-	font-family: 'Audiowide', bold;
-	display:none;
-}
-
-#title a{
-	color:#555E5E;
-	opacity:.8;
-}
-
-#title a:hover{
-	opacity:1;
-}
-
-#controls{
-	margin-top:5px;
-}
-
-#pause{
-	display:none;
+	#tr909{
+		display:none;
+	}
+	#tr909_small{
+		display:block;
+		width:320px;
+		margin:auto;
+	}
+	#soundcloud{
+		width:320px;
+	}
+	#title{
+		font-weight:normal;
+		font-size:.9em;
+		top:20%;
+		left:9%;
+	}
 }
