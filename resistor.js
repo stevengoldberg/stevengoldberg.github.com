@@ -38,7 +38,12 @@ Track = function (trackId){
     });
 
     this.play = function() {
-        currentTrack.play();
+        currentTrack.play({
+			onfinish: function(){
+        	$('#next').click();
+        	$('#play').click();
+       	 	}
+		});
     };
 
     this.pause = function() {
