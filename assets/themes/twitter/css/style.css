@@ -212,6 +212,26 @@ a.twitter_retweet_icon:hover:after{
 	opacity:1 !important;
 }
 
+#progress_container{
+	width:76%;
+	height:10%;
+	left:14%;
+	bottom:27%;
+	position:absolute;
+}
+
+#progress{
+	position:absolute;
+	background-color:white;
+	opacity:.4;
+	width:0%;
+	height:100%;
+	left:0;
+	bottom:0;
+	transition: width .1s;
+	-webkit-transition: width .1s
+}
+
 #title{
 	position:absolute;
 	top:25.5%;
@@ -233,6 +253,7 @@ a.twitter_retweet_icon:hover:after{
 
 #controls{
 	margin-top:5px;
+	font-size:1.2em;
 }
 
 #pause{

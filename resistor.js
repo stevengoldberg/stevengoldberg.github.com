@@ -31,18 +31,20 @@ function splitTweet(tweet){
 
 Track = function (trackId){
     var currentTrack = "";
-
-
+	
     SC.stream(trackId, function(sound){
         currentTrack = sound;
-    });
+	});
 
     this.play = function() {
         currentTrack.play({
 			onfinish: function(){
         	$('#next').click();
-        	$('#play').click();
-       	 	}
+       	 	},
+			whileplaying: function(){
+				var percentComplete = ((this.position / this.duration) * 100);
+				$('#progress').css('width', percentComplete + '%');
+			}
 		});
     };
 
@@ -130,10 +132,9 @@ $(document).ready(function() {
 			currentPlayingTrack = new Track(currentTrack.uri);
 			changeTitle(currentTrack, true);
 			if($('#soundcloud').hasClass('playing')){
-				$('#soundcloud').removeClass('playing');
-				$('#pause').hide();
-				$('#play').show();
+				currentPlayingTrack.play();
 			}
+			$('#soundcloud').removeClass('paused');
 		});
 		
 		$('#prev').on('click', function(e){
@@ -142,11 +143,10 @@ $(document).ready(function() {
 			currentTrack = rotation.prevTrack();
 			currentPlayingTrack = new Track(currentTrack.uri);
 			changeTitle(currentTrack, true);
-			if($('#soundcloud').hasClass('.playing')){
-				$('#soundcloud').removeClass('.playing');
-				$('#pause').hide();
-				$('#play').show();
+			if($('#soundcloud').hasClass('playing')){
+				currentPlayingTrack.play();
 			}
+			$('#soundcloud').removeClass('paused');
 		});
 	});
 });
