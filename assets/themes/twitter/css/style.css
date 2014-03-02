@@ -282,13 +282,19 @@ a.twitter_retweet_icon:hover:after{
 	border-radius:15px;
 	height:100%;
 	opacity:.8;
-	transition: opacity .2s;
-	-webkit-transition: opacity .2s;
+	transition: opacity .8s;
+	-webkit-transition: opacity .8s;
+	backface-visibility:hidden;
+	position:absolute;
+	left:8%;
+	top:0;
 }
 
-#photoContainer a img:hover{
-	opacity:1;
+#photoContainer a img.hiddenSlide{
+	opacity:0 !important;
 }
+
+
 
 /* Small Screens */
 

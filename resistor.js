@@ -12,7 +12,7 @@ function handleTweets(tweets){
 	currentTweet = (currentTweet + 1) % numTweets;
 	window.setInterval(function() {
 		$('#text').fadeOut(500, function() {
-			$('#text, #buttons').empty();
+			//$('#text, #buttons').empty();
 			splitTweet(tweets[currentTweet]);
 			currentTweet = (currentTweet + 1) % numTweets;
 			$('#text').fadeIn(500);
@@ -25,8 +25,8 @@ function splitTweet(tweet){
 	var search = tweet.search('<p class="interact">');
 	var tweetText = tweet.slice(0,search);
 	var buttons = tweet.slice(search, end);	
-    $('#text').append(tweetText);
-	$('#buttons').append(buttons);
+    $('#text').html(tweetText);
+	$('#buttons').html(buttons);
 }
 
 Track = function (trackId){
@@ -171,7 +171,9 @@ $(document).ready(function() {
 function getPhotos(){
 	$.get('https://api.instagram.com/v1/users/252833323/media/recent/?client_id=027d4ba8024541bda9174d50c1592dfa', function(images){
 		console.log(images);
-		showPhotos(images.data);
+		//showPhotos(images.data);
+		addPhotos(images.data);
+		rotatePhotos(images.data);
 	}, "jsonp");
 }
 
@@ -181,16 +183,42 @@ function showPhotos(photos){
 	photoLink = photos[currentPhoto].link;
 	$('#photoContainer').append('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
 	window.setInterval(function() {
-		$('#photoContainer img').fadeOut(500, function() {
-			$('#photoContainer').empty();
-			currentPhoto = (currentPhoto + 1) % numTweets;
+		$('#photoContainer img').fadeOut(750, function() {
+			//$('#photoContainer').empty();
+			currentPhoto = (currentPhoto + 1) % photos.length;
 			photoUrl = photos[currentPhoto].images.standard_resolution.url;
 			photoLink = photos[currentPhoto].link;
-			$('#photoContainer').append('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
-			$('#photoContainer img').fadeIn(500);
+			$('#photoContainer').html('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
+			$('#photoContainer img').fadeIn(750);
 		});
     }, 7000);
 }
 
+function addPhotos(photos){
+	$('#photoContainer').append('<a href="' + photos[0].link + '">' + '<img id="slide0" src="' + photos[0].images.standard_resolution.url + '">' + '</a>');
+	$('#slide0').addClass('currentSlide');
+	$('#photoContainer').hover(function(){
+		$('#photoContainer a img.currentSlide').css('opacity','1');
+	}, function(){
+		$('#photoContainer a img.currentSlide').css('opacity','.75');
+	});
+	for(i=1;i<photos.length;i++){
+		photoUrl = photos[i].images.standard_resolution.url;
+		photoLink = photos[i].link;
+		$('#photoContainer').append('<a href="' + photoLink + '">' + '<img id="slide' + (i) + '"' + 'src="' + photoUrl + '">' + '</a>');
+		$('#slide' + i).addClass('hiddenSlide');
+	}
+}
 
+function rotatePhotos(photos){
+	var currentSlide = 0;
+	var numSlides = 20;
+	window.setInterval(function() {
+		$('#slide' + currentSlide).toggleClass('hiddenSlide currentSlide', 500, function(){
+			currentSlide = (currentSlide + 1) % (numSlides - 1);
+			$('#slide' + currentSlide).toggleClass('hiddenSlide currentSlide', 500);
+		});
+		
+    }, 7000);
+}
 
