@@ -240,6 +240,7 @@ a.twitter_retweet_icon:hover:after{
 	font-family: 'Audiowide', bold;
 	display:none;
 	overflow:hidden;
+	font-size:1.1em;
 }
 
 #title a{
@@ -251,13 +252,35 @@ a.twitter_retweet_icon:hover:after{
 	opacity:1;
 }
 
-#controls{
+.controls{
 	margin-top:5px;
 	font-size:1.2em;
 }
 
 #pause{
 	display:none;
+}
+
+/* Instagram Widget */
+
+#instagram{
+	margin:auto;
+	position:relative;
+}
+
+#photoContainer{
+	position:absolute;
+	width:40%;
+	height:45%;
+	background-color:#2c2c2c;
+	bottom:47.5%;
+	left:15.5%;
+	border-radius:10px;
+}
+
+#photoContainer img{
+	border-radius:15px;
+	height:100%;
 }
 
 /* Small Screens */

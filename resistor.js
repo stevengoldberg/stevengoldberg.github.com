@@ -39,7 +39,7 @@ Track = function (trackId){
     this.play = function() {
         currentTrack.play({
 			onfinish: function(){
-        	$('#next').click();
+        	$('#nextsong').click();
        	 	},
 			whileplaying: function(){
 				var percentComplete = ((this.position / this.duration) * 100);
@@ -59,31 +59,47 @@ Track = function (trackId){
 };
 
 Rotation = function(tracks) {
-        var currentTrack = tracks[1];
+    var currentTrack = tracks[1];
 
-        this.currentTrack = function() {
-            return currentTrack;
-        };
-
-        this.nextTrack = function () {
-            var currentIndex = tracks.indexOf(currentTrack);
-            var nextTrackIndex = (currentIndex + 1) % tracks.length;
-            var nextTrackId = tracks[nextTrackIndex];
-            currentTrack = nextTrackId;
-            return currentTrack
-        };
-		
-        this.prevTrack = function () {
-            var currentIndex = tracks.indexOf(currentTrack);
-            var prevTrackIndex = (currentIndex - 1);
-			if(prevTrackIndex<0){
-				prevTrackIndex=(tracks.length)-1;
-			}
-            var prevTrackId = tracks[prevTrackIndex];
-            currentTrack = prevTrackId;
-            return currentTrack
-        };
+    this.currentTrack = function() {
+        return currentTrack;
     };
+
+    this.nextTrack = function () {
+        var currentIndex = tracks.indexOf(currentTrack);
+        var nextTrackIndex = (currentIndex + 1) % tracks.length;
+        var nextTrackId = tracks[nextTrackIndex];
+        currentTrack = nextTrackId;
+        return currentTrack
+    };
+	
+    this.prevTrack = function () {
+        var currentIndex = tracks.indexOf(currentTrack);
+        var prevTrackIndex = (currentIndex - 1);
+		if(prevTrackIndex<0){
+			prevTrackIndex=(tracks.length)-1;
+		}
+        var prevTrackId = tracks[prevTrackIndex];
+        currentTrack = prevTrackId;
+        return currentTrack
+    };
+};
+
+function changeTitle(newTrack, oldTrack){
+	var titleHtml = "<a href='" + newTrack.permalink_url + "'>" + newTrack.title + "</a>"
+	if(oldTrack){
+		$('#title').fadeOut(500, function(){
+			$('#title').empty();
+			$('#title').append(titleHtml);
+			$('#title').fadeIn(500);
+		});
+	}
+	else{
+		$('#title').append(titleHtml);
+		$('#title').fadeIn(500);
+	}
+}
+
 
 $(document).ready(function() {
 	
@@ -125,7 +141,7 @@ $(document).ready(function() {
 			$('#play').show();
 		});
 
-		$('#next').on('click', function(e){
+		$('#nextsong').on('click', function(e){
 			e.preventDefault();
 			currentPlayingTrack.stop();
 			currentTrack = rotation.nextTrack();
@@ -137,7 +153,7 @@ $(document).ready(function() {
 			$('#soundcloud').removeClass('paused');
 		});
 		
-		$('#prev').on('click', function(e){
+		$('#prevsong').on('click', function(e){
 			e.preventDefault();
 			currentPlayingTrack.stop();
 			currentTrack = rotation.prevTrack();
@@ -149,21 +165,32 @@ $(document).ready(function() {
 			$('#soundcloud').removeClass('paused');
 		});
 	});
+	getPhotos();
 });
 
-function changeTitle(newTrack, oldTrack){
-	var titleHtml = "<a href='" + newTrack.permalink_url + "'>" + newTrack.title + "</a>"
-	if(oldTrack){
-		$('#title').fadeOut(500, function(){
-			$('#title').empty();
-			$('#title').append(titleHtml);
-			$('#title').fadeIn(500);
-		});
-	}
-	else{
-		$('#title').append(titleHtml);
-		$('#title').fadeIn(500);
-	}
+function getPhotos(){
+	$.get('https://api.instagram.com/v1/users/252833323/media/recent/?client_id=027d4ba8024541bda9174d50c1592dfa', function(images){
+		console.log(images);
+		showPhotos(images.data);
+	}, "jsonp");
 }
+
+function showPhotos(photos){
+	var currentPhoto = Math.floor(Math.random()*photos.length);
+	photoUrl = photos[currentPhoto].images.standard_resolution.url;
+	photoLink = photos[currentPhoto].link;
+	$('#photoContainer').append('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
+	window.setInterval(function() {
+		$('#photoContainer img').fadeOut(500, function() {
+			$('#photoContainer').empty();
+			currentPhoto = (currentPhoto + 1) % numTweets;
+			photoUrl = photos[currentPhoto].images.standard_resolution.url;
+			photoLink = photos[currentPhoto].link;
+			$('#photoContainer').append('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
+			$('#photoContainer img').fadeIn(500);
+		});
+    }, 10000);
+}
+
 
 
