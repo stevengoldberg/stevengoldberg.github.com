@@ -189,7 +189,7 @@ function showPhotos(photos){
 			$('#photoContainer').append('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
 			$('#photoContainer img').fadeIn(500);
 		});
-    }, 10000);
+    }, 7000);
 }
 
 
