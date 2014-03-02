@@ -278,9 +278,16 @@ a.twitter_retweet_icon:hover:after{
 	border-radius:10px;
 }
 
-#photoContainer img{
+#photoContainer a img{
 	border-radius:15px;
 	height:100%;
+	opacity:.8;
+	transition: opacity .2s;
+	-webkit-transition: opacity .2s;
+}
+
+#photoContainer a img:hover{
+	opacity:1;
 }
 
 /* Small Screens */
