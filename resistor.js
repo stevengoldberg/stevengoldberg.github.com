@@ -166,6 +166,10 @@ $(document).ready(function() {
 		});
 	});
 	getPhotos();
+	$('img#mac').tooltip({ position: { my: "center top", at: "center-15% center+15%" }});
+	$( "img#mac" ).on( "tooltipclose", function( event, ui ) {
+		$( "img#mac" ).tooltip( "disable" );
+	});
 });
 
 function getPhotos(){
@@ -181,11 +185,6 @@ function getPhotos(){
 function addPhotos(photos){
 	$('#photoContainer').append('<a href="' + photos[0].link + '">' + '<img id="slide0" src="' + photos[0].images.standard_resolution.url + '">' + '</a>');
 	$('#slide0').addClass('active');
-	/*$('#photoContainer').hover(function(){
-		$('#photoContainer a img.active').css('opacity','1');
-	}, function(){
-		$('#photoContainer a img.active').css('opacity','.75');
-	});*/
 	for(i=1;i<photos.length;i++){
 		photoUrl = photos[i].images.standard_resolution.url;
 		photoLink = photos[i].link;
@@ -194,7 +193,28 @@ function addPhotos(photos){
 }
 
 function rotatePhotos(photos){
-	window.setInterval(function() {
+	$('.nextPhoto').click(function(e){
+		e.preventDefault();
+		var $active = $('#photoContainer a img.active');
+		var $next = ($active.parent().next().length > 0) ? $active.parent().next().contents() : $('#photoContainer a:first img');
+		$next.css('z-index',2);
+		$active.fadeOut(750,function(){
+			$active.css('z-index',1).show().removeClass('active');
+			$next.css('z-index',3).addClass('active');
+		    });
+	});
+	$('.prevPhoto').click(function(e){
+		e.preventDefault();
+		var $active = $('#photoContainer a img.active');
+		var $prev = ($active.parent().prev().length > 0) ? $active.parent().prev().contents() : $('#photoContainer a:last img');
+		$prev.css('z-index',2);
+		$active.fadeOut(750,function(){
+			$active.css('z-index',1).show().removeClass('active');
+			$prev.css('z-index',3).addClass('active');
+		    });
+	});
+	
+	/*window.setInterval(function() {
 		var $active = $('#photoContainer a img.active');
 		var $next = ($active.parent().next().length > 0) ? $active.parent().next().contents() : $('#photoContainer a:first img');
 		$next.css('z-index',2);
@@ -202,7 +222,7 @@ function rotatePhotos(photos){
 			$active.css('z-index',1).show().removeClass('active');
 			$next.css('z-index',3).addClass('active');
 		    });
-		 }, 7000);
+		 }, 7000);*/
 	}
 
 
