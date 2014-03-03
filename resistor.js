@@ -166,9 +166,11 @@ $(document).ready(function() {
 		});
 	});
 	getPhotos();
-	$('img#mac').tooltip({ position: { my: "center top", at: "center-15% center+15%" }});
-	$( "img#mac" ).on( "tooltipclose", function( event, ui ) {
-		$( "img#mac" ).tooltip( "disable" );
+	$('img#mac').tooltip({ position: { my: "center top", at: "center-12% center+37%" }});
+	$( "img#mac" ).on( "tooltipopen", function( event, ui ) {
+		setTimeout(function(){
+			$("img#mac").tooltip("close");
+		}, 3000);
 	});
 });
 
