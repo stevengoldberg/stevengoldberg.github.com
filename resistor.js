@@ -166,13 +166,12 @@ $(document).ready(function() {
 		});
 	});
 	getPhotos();
-	$('img#mac').tooltip({ position: { my: "center top", at: "center-12% center+37%" }});
-	$( "img#mac" ).on( "tooltipopen", function( event, ui ) {
-		setTimeout(function(){
-			$("img#mac").tooltip("close");
-		}, 3000);
+	$('img#mac').tooltip({ position: { my: "center top", at: "center-12% center+37%" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
+	$( "img#mac" ).on( "tooltipclose", function( event, ui ) {
+		$("img#mac").tooltip("disable");
+		});
 	});
-});
+
 
 function getPhotos(){
 	$.get('https://api.instagram.com/v1/users/252833323/media/recent/?client_id=027d4ba8024541bda9174d50c1592dfa', function(images){
