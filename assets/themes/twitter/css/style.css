@@ -95,7 +95,7 @@ a:hover{
 
 img.oscillator{
 	position:absolute;
-	left:181px;
+	left:26%;
 	opacity:.8;
 }
 
@@ -103,8 +103,8 @@ img.oscillator:hover{
 	opacity:1;
 }
 
-img.oscillator#prevTweet{
-	top:92px;
+img.oscillator.prevTweet{
+	top:22%;
 	cursor:pointer;
 	-moz-transition: all .2s ease;
 	-webkit-transition: all .2s ease;
@@ -112,8 +112,8 @@ img.oscillator#prevTweet{
 	transition: all .2s ease;
 }
 
-img.oscillator#nextTweet{
-	top:133px;
+img.oscillator.nextTweet{
+	top:32%;
 	cursor:pointer;
 	-moz-transition: all .2s ease;
 	-webkit-transition: all .2s ease;
@@ -147,10 +147,6 @@ p.timePosted{
 	padding:0 5px;
 }
 
-/*#tweet img{
-	width:100%;
-	height:100%;
-}*/
 
 #buttons{
 	position:absolute;
@@ -219,6 +215,10 @@ a.twitter_retweet_icon:hover:after{
 }
 
 #minimoog_small{
+	display:none;
+}
+
+.twitter.controls{
 	display:none;
 }
 
@@ -411,5 +411,11 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		font-size:.9em;
 		top:20%;
 		left:9%;
+	}
+	img.oscillator{
+		display:none;
+	}
+	.twitter.controls{
+		display:block;
 	}
 }

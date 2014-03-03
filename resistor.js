@@ -9,9 +9,10 @@ function handleTweets(tweets){
     var currentTweet = 0;
 	splitTweet(tweets[currentTweet]);
 	var prevRotation = 0;
-	$('img.oscillator#prevTweet').click(function(){
+	$('.prevTweet').click(function(e){
+		e.preventDefault();
 		prevRotation -= 40;
-		$('img.oscillator#prevTweet').css('transform','rotate(' + prevRotation + 'deg)');
+		$('img.oscillator.prevTweet').css('transform','rotate(' + prevRotation + 'deg)');
 		currentTweet = (currentTweet==0) ? numTweets-1 : currentTweet-1;
 		$('#text').fadeOut(500, function() {
 			splitTweet(tweets[currentTweet]);
@@ -19,9 +20,10 @@ function handleTweets(tweets){
 		});
 	});
 	var nextRotation = 0;
-	$('img.oscillator#nextTweet').click(function(){
+	$('.nextTweet').click(function(e){
+		e.preventDefault();
 		nextRotation += 40;
-		$('img.oscillator#nextTweet').css('transform','rotate(' + nextRotation + 'deg)');
+		$('img.oscillator.nextTweet').css('transform','rotate(' + nextRotation + 'deg)');
 		currentTweet = (currentTweet + 1) % numTweets;
 		$('#text').fadeOut(500, function() {
 			splitTweet(tweets[currentTweet]);
