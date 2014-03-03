@@ -271,27 +271,30 @@ a.twitter_retweet_icon:hover:after{
 #photoContainer{
 	position:absolute;
 	width:40%;
-	height:47%;
+	height:51%;
 	background-color:#2c2c2c;
-	bottom:45.5%;
-	left:15.5%;
+	bottom:42%;
+	left:16%;
 	border-radius:10px;
 }
 
 #photoContainer a img{
 	border-radius:15px;
 	height:100%;
-	opacity:.8;
-	transition: opacity .8s;
-	-webkit-transition: opacity .8s;
-	backface-visibility:hidden;
 	position:absolute;
-	left:8%;
+	left:10px;
 	top:0;
+	z-index:1;
+	border:2px solid #2c2c2c;
+	box-sizing:border-box;
 }
 
-#photoContainer a img.hiddenSlide{
-	opacity:0 !important;
+#photoContainer a img.active{
+	z-index:3;
+}
+
+#photoContainer a img.active:hover{
+	border:2px solid #6B6B6B;
 }
 
 

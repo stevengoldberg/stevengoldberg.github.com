@@ -177,48 +177,32 @@ function getPhotos(){
 	}, "jsonp");
 }
 
-function showPhotos(photos){
-	var currentPhoto = Math.floor(Math.random()*photos.length);
-	photoUrl = photos[currentPhoto].images.standard_resolution.url;
-	photoLink = photos[currentPhoto].link;
-	$('#photoContainer').append('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
-	window.setInterval(function() {
-		$('#photoContainer img').fadeOut(750, function() {
-			//$('#photoContainer').empty();
-			currentPhoto = (currentPhoto + 1) % photos.length;
-			photoUrl = photos[currentPhoto].images.standard_resolution.url;
-			photoLink = photos[currentPhoto].link;
-			$('#photoContainer').html('<a href="' + photoLink + '">' + '<img src="' + photoUrl + '">' + '</a>');
-			$('#photoContainer img').fadeIn(750);
-		});
-    }, 7000);
-}
 
 function addPhotos(photos){
 	$('#photoContainer').append('<a href="' + photos[0].link + '">' + '<img id="slide0" src="' + photos[0].images.standard_resolution.url + '">' + '</a>');
-	$('#slide0').addClass('currentSlide');
-	$('#photoContainer').hover(function(){
-		$('#photoContainer a img.currentSlide').css('opacity','1');
+	$('#slide0').addClass('active');
+	/*$('#photoContainer').hover(function(){
+		$('#photoContainer a img.active').css('opacity','1');
 	}, function(){
-		$('#photoContainer a img.currentSlide').css('opacity','.75');
-	});
+		$('#photoContainer a img.active').css('opacity','.75');
+	});*/
 	for(i=1;i<photos.length;i++){
 		photoUrl = photos[i].images.standard_resolution.url;
 		photoLink = photos[i].link;
 		$('#photoContainer').append('<a href="' + photoLink + '">' + '<img id="slide' + (i) + '"' + 'src="' + photoUrl + '">' + '</a>');
-		$('#slide' + i).addClass('hiddenSlide');
 	}
 }
 
 function rotatePhotos(photos){
-	var currentSlide = 0;
-	var numSlides = 20;
 	window.setInterval(function() {
-		$('#slide' + currentSlide).toggleClass('hiddenSlide currentSlide', 500, function(){
-			currentSlide = (currentSlide + 1) % (numSlides - 1);
-			$('#slide' + currentSlide).toggleClass('hiddenSlide currentSlide', 500);
-		});
-		
-    }, 7000);
-}
+		var $active = $('#photoContainer a img.active');
+		var $next = ($active.parent().next().length > 0) ? $active.parent().next().contents() : $('#photoContainer a:first img');
+		$next.css('z-index',2);
+		$active.fadeOut(1000,function(){
+			$active.css('z-index',1).show().removeClass('active');
+			$next.css('z-index',3).addClass('active');
+		    });
+		 }, 7000);
+	}
+
 
