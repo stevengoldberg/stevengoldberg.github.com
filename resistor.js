@@ -6,18 +6,28 @@ SC.initialize({
 var numTweets = 20;
 
 function handleTweets(tweets){
-    var currentTweet = Math.floor(Math.random()*numTweets);
-	var initial = true;
+    var currentTweet = 0;
 	splitTweet(tweets[currentTweet]);
-	currentTweet = (currentTweet + 1) % numTweets;
-	window.setInterval(function() {
+	var prevRotation = 0;
+	$('img.oscillator#prevTweet').click(function(){
+		prevRotation -= 40;
+		$('img.oscillator#prevTweet').css('transform','rotate(' + prevRotation + 'deg)');
+		currentTweet = (currentTweet==0) ? numTweets-1 : currentTweet-1;
 		$('#text').fadeOut(500, function() {
-			//$('#text, #buttons').empty();
 			splitTweet(tweets[currentTweet]);
-			currentTweet = (currentTweet + 1) % numTweets;
 			$('#text').fadeIn(500);
 		});
-    }, 10000);
+	});
+	var nextRotation = 0;
+	$('img.oscillator#nextTweet').click(function(){
+		nextRotation += 40;
+		$('img.oscillator#nextTweet').css('transform','rotate(' + nextRotation + 'deg)');
+		currentTweet = (currentTweet + 1) % numTweets;
+		$('#text').fadeOut(500, function() {
+			splitTweet(tweets[currentTweet]);
+			$('#text').fadeIn(500);
+		});
+	});
 }
 
 function splitTweet(tweet){
@@ -169,6 +179,10 @@ $(document).ready(function() {
 	$('img#mac').tooltip({ position: { my: "center top", at: "center-12% center+37%" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
 	$( "img#mac" ).on( "tooltipclose", function( event, ui ) {
 		$("img#mac").tooltip("disable");
+		});
+	$('img#minimoog').tooltip({ position: { my: "center top", at: "left+24% center" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
+	$( "img#minimoog" ).on( "tooltipclose", function( event, ui ) {
+		$("img#minimoog").tooltip("disable");
 		});
 	});
 

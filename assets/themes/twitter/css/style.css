@@ -93,6 +93,34 @@ a:hover{
 
 /* Minimoog Tweet Widget */
 
+img.oscillator{
+	position:absolute;
+	left:181px;
+	opacity:.8;
+}
+
+img.oscillator:hover{
+	opacity:1;
+}
+
+img.oscillator#prevTweet{
+	top:92px;
+	cursor:pointer;
+	-moz-transition: all .2s ease;
+	-webkit-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
+}
+
+img.oscillator#nextTweet{
+	top:133px;
+	cursor:pointer;
+	-moz-transition: all .2s ease;
+	-webkit-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
+}
+
 #tweet{
 	position:relative;
 	text-align:left;
