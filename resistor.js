@@ -101,14 +101,11 @@ function changeTitle(newTrack, oldTrack){
 	var titleHtml = "<a href='" + newTrack.permalink_url + "'>" + newTrack.title + "</a>"
 	if(oldTrack){
 		$('#title').fadeOut(500, function(){
-			$('#title').empty();
-			$('#title').append(titleHtml);
-			$('#title').fadeIn(500);
+			$('#title').html(titleHtml).fadeIn(500);
 		});
 	}
 	else{
-		$('#title').append(titleHtml);
-		$('#title').fadeIn(500);
+		$('#title').html(titleHtml).fadeIn(500);
 	}
 }
 
