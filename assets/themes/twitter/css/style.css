@@ -96,11 +96,8 @@ a:hover{
 img.oscillator{
 	position:absolute;
 	left:26%;
-	opacity:.8;
-}
-
-img.oscillator:hover{
-	opacity:1;
+	animation:glow .6s ease-in-out 0s infinite alternate forwards;
+	-webkit-animation:glow .6s ease-in-out 0s infinite alternate forwards;
 }
 
 img.oscillator.prevTweet{
@@ -119,6 +116,10 @@ img.oscillator.nextTweet{
 	-webkit-transition: all .2s ease;
 	-o-transition: all .2s ease;
 	transition: all .2s ease;
+}
+
+img.oscillator:hover{
+	opacity:1;
 }
 
 #tweet{
@@ -226,9 +227,9 @@ a.twitter_retweet_icon:hover:after{
 
 #soundcloud{
 	position:relative;
-	opacity:.9;
-	transition: opacity .5s;
-	-webkit-transition: opacity .5s;
+	opacity:.85;
+	transition: opacity .6s;
+	-webkit-transition: opacity .6s;
 	margin:auto;
 }
 
@@ -244,7 +245,7 @@ a.twitter_retweet_icon:hover:after{
 	width:76%;
 	height:10%;
 	left:14%;
-	bottom:27%;
+	bottom:22.5%;
 	position:absolute;
 }
 
@@ -262,7 +263,7 @@ a.twitter_retweet_icon:hover:after{
 
 #title{
 	position:absolute;
-	top:25.5%;
+	top:27%;
 	left:9%;
 	font-weight:bold;
 	font-family: 'Audiowide', bold;
@@ -280,13 +281,75 @@ a.twitter_retweet_icon:hover:after{
 	opacity:1;
 }
 
+img.knob{
+	position:absolute;
+	animation:glow .6s ease-in-out 0s infinite alternate forwards;
+	-webkit-animation:glow .6s ease-in-out 0s infinite alternate forwards;
+	-moz-transition: all .2s ease;
+	-webkit-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
+}
+
+img.knob.prevSong{
+	left:30.5%;
+	bottom:35%;
+}
+
+img.knob.nextSong{
+	left:85%;
+	bottom:35.5%;
+}
+
 .controls{
 	margin-top:5px;
 	font-size:1.2em;
 }
 
-#pause{
+#soundcloud span.large{
+	position:absolute;
+	font-family:audiowide;
+	display:inline;
+	bottom: 43%;
+}
+
+#soundcloud span.large a{
+	color:#555E5E;
+}
+
+#soundcloud span.large.play{
+	left:9%;
+}
+
+#soundcloud span.pause{
+	left:8%;
 	display:none;
+}
+
+#soundcloud img.pause{
+	display:none;
+}
+
+#soundcloud span.large.prevSong{
+	left:28%;
+}
+
+#soundcloud span.large.nextSong{
+	left:84%;
+}
+
+img.play, img.pause{
+	position:absolute;
+	left:9%;
+	bottom:35%;
+	animation:glow .6s ease-in-out 0s infinite alternate forwards;
+	-webkit-animation:glow .6s ease-in-out 0s infinite alternate forwards;
+}
+
+@media screen and (min-width:700px){
+	.small{
+		display:none !important;
+	}
 }
 
 /* Instagram Widget */
@@ -298,15 +361,17 @@ a.twitter_retweet_icon:hover:after{
 
 img.prevPhoto, img.nextPhoto{
 	position:absolute;
-	bottom:76px;
+	bottom:15%;
+	animation:glow .4s ease-in-out 0s infinite alternate forwards;
+	-webkit-animation:glow .4s ease-in-out 0s infinite alternate forwards;
 }
 
 img.prevPhoto{
-	left:121px;
+	left:17.5%;
 }
 
 img.nextPhoto{
-	left:369px;
+	left:52.5%;
 }
 
 img.prevPhoto:hover, img.nextPhoto:hover{
@@ -358,6 +423,9 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	#RE, #SIS, #TOR{
 		font-size:4em;
 	}
+	
+	/*Twitter */
+	
 	#minimoog{
 		display:none;
 	}
@@ -395,17 +463,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		left:25%;
 		top:49%;
 	}
-	#tr909{
-		display:none;
-	}
-	#tr909_small{
-		display:block;
-		width:320px;
-		margin:auto;
-	}
-	#soundcloud{
-		width:320px;
-	}
+	
 	#title{
 		font-weight:normal;
 		font-size:.9em;
@@ -418,4 +476,58 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	.twitter.controls{
 		display:block;
 	}
+	
+	/* Soundcloud */
+	
+	#tr909{
+		display:none;
+	}
+	#tr909_small{
+		display:block;
+		width:320px;
+		margin:auto;
+	}
+	#soundcloud{
+		width:320px;
+	}
+	
+	#soundcloud .large{
+		display:none !important;
+	}
+	#soundcloud span.small{
+		display:inline;
+	}
+	
+	#soundcloud span.small.pause{
+		display:none;
+	}
+	
+	#progress_container{
+		bottom:29.5%;
+	}
+	
+	#soundcloud img.knob{
+		display:none;
+	}
+	
+	/* Instagram */
+	
+	#instagram .controls{
+		display:inline;
+	}
+	
+	img.prevPhoto, img.nextPhoto{
+		display:none;
+	}
+}
+
+/* Animation */
+
+@keyframes glow{
+	0%{opacity:.7}
+	100%{opacity:1;}
+}
+@-webkit-keyframes glow{
+	0%{opacity:.7}
+	100%{opacity:1;}
 }

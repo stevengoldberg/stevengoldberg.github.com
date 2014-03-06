@@ -51,7 +51,7 @@ Track = function (trackId){
     this.play = function() {
         currentTrack.play({
 			onfinish: function(){
-        	$('#nextsong').click();
+        	$('.nextSong').click();
        	 	},
 			whileplaying: function(){
 				var percentComplete = ((this.position / this.duration) * 100);
@@ -119,70 +119,16 @@ $(document).ready(function() {
 		});
 	});
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
-	SC.get('/users/11021442/tracks', function(songs){
-		var rotation = new Rotation(songs);
-		var currentTrack = rotation.currentTrack();
-		changeTitle(currentTrack, undefined);
-		var currentPlayingTrack = new Track(currentTrack.uri);
-		$('#play').on('click', function(e){
-			e.preventDefault();
-			if($('#soundcloud').hasClass('paused')){
-				$('#soundcloud').removeClass('paused');
-				$('#soundcloud').addClass('playing');
-				currentPlayingTrack.pause();
-				$('#pause').show();
-				$('#play').hide();
-			}
-			else{
-				$('#soundcloud').addClass('playing');
-				currentPlayingTrack.play();
-				$('#pause').show();
-				$('#play').hide();
-			}
-		});
-
-		$('#pause').on('click', function(e){
-			e.preventDefault();
-			currentPlayingTrack.pause();
-			$('#soundcloud').addClass('paused');
-			$('#soundcloud').removeClass('playing');
-			$('#pause').hide();
-			$('#play').show();
-		});
-
-		$('#nextsong').on('click', function(e){
-			e.preventDefault();
-			currentPlayingTrack.stop();
-			currentTrack = rotation.nextTrack();
-			currentPlayingTrack = new Track(currentTrack.uri);
-			changeTitle(currentTrack, true);
-			if($('#soundcloud').hasClass('playing')){
-				currentPlayingTrack.play();
-			}
-			$('#soundcloud').removeClass('paused');
-		});
-		
-		$('#prevsong').on('click', function(e){
-			e.preventDefault();
-			currentPlayingTrack.stop();
-			currentTrack = rotation.prevTrack();
-			currentPlayingTrack = new Track(currentTrack.uri);
-			changeTitle(currentTrack, true);
-			if($('#soundcloud').hasClass('playing')){
-				currentPlayingTrack.play();
-			}
-			$('#soundcloud').removeClass('paused');
-		});
-	});
+	playSongs();
 	getPhotos();
-	$('img#mac').tooltip({ position: { my: "center top", at: "center-12% center+37%" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
+	/*$('img#mac').tooltip({ position: { my: "center top", at: "center-12% center+37%" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
 	$( "img#mac" ).on( "tooltipclose", function( event, ui ) {
-		$("img#mac").tooltip("disable");
+		($(this).tooltip("disable"));
 		});
 	$('img#minimoog').tooltip({ position: { my: "center top", at: "left+24% center" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
 	$( "img#minimoog" ).on( "tooltipclose", function( event, ui ) {
-		$("img#minimoog").tooltip("disable");
-		});
+		($(this).tooltip("disable"));
+		});*/
 	});
 
 
@@ -195,6 +141,72 @@ function getPhotos(){
 	}, "jsonp");
 }
 
+function playSongs(){
+	SC.get('/users/11021442/tracks', function(songs){
+		var rotation = new Rotation(songs);
+		var currentTrack = rotation.currentTrack();
+		changeTitle(currentTrack, undefined);
+		var currentPlayingTrack = new Track(currentTrack.uri);
+		var $soundcloud = $('#soundcloud');
+		var controlSize;
+		$('.play').on('click', function(e){
+			e.preventDefault();
+			controlSize = ($(window).width() <= 700) ? '.small' : '.large';
+			if($soundcloud.hasClass('paused')){
+				$($soundcloud).removeClass('paused');
+				$soundcloud.addClass('playing');
+				currentPlayingTrack.pause();
+				$(controlSize+'.pause').show();
+				$(controlSize+'.play').hide();
+			}
+			else{
+				controlSize = ($(window).width() <= 700) ? '.small' : '.large';
+				$soundcloud.addClass('playing');
+				currentPlayingTrack.play();
+				$(controlSize+'.pause').show();
+				$(controlSize+'.play').hide();
+			}
+		});
+
+		$('.pause').on('click', function(e){
+			e.preventDefault();
+			currentPlayingTrack.pause();
+			controlSize = ($(window).width() <= 700) ? '.small' : '.large';
+			$soundcloud.addClass('paused');
+			$soundcloud.removeClass('playing');
+			$(controlSize+'.pause').hide();
+			$(controlSize+'.play').show();
+		});
+		var nextRotation = 0;
+		$('.nextSong').on('click', function(e){
+			e.preventDefault();
+			currentPlayingTrack.stop();
+			currentTrack = rotation.nextTrack();
+			currentPlayingTrack = new Track(currentTrack.uri);
+			changeTitle(currentTrack, true);
+			nextRotation += 40;
+			$('#soundcloud img.knob.nextSong').css('transform','rotate(' + nextRotation + 'deg)');
+			if($soundcloud.hasClass('playing')){
+				currentPlayingTrack.play();
+			}
+			$soundcloud.removeClass('paused');
+		});
+		var prevRotation = 0;
+		$('.prevSong').on('click', function(e){
+			e.preventDefault();
+			currentPlayingTrack.stop();
+			currentTrack = rotation.prevTrack();
+			currentPlayingTrack = new Track(currentTrack.uri);
+			changeTitle(currentTrack, true);
+			prevRotation -= 40;
+			$('#soundcloud img.knob.prevSong').css('transform','rotate(' + prevRotation + 'deg)');
+			if($soundcloud.hasClass('playing')){
+				currentPlayingTrack.play();
+			}
+			$soundcloud.removeClass('paused');
+		});
+	});
+}
 
 function addPhotos(photos){
 	$('#photoContainer').append('<a href="' + photos[0].link + '">' + '<img id="slide0" src="' + photos[0].images.standard_resolution.url + '">' + '</a>');
