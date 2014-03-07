@@ -98,7 +98,7 @@ Rotation = function(tracks) {
 };
 
 function changeTitle(newTrack, oldTrack){
-	var titleHtml = "<a href='" + newTrack.permalink_url + "'>" + newTrack.title + "</a>"
+	var titleHtml = "<a href='" + newTrack.permalink_url + "' onClick=ga('send', 'event', 'Soundcloud', 'Click', &#39;" + newTrack.title + "&#39;);>" + newTrack.title + "</a>";
 	if(oldTrack){
 		$('#title').fadeOut(500, function(){
 			$('#title').html(titleHtml).fadeIn(500);
@@ -111,7 +111,6 @@ function changeTitle(newTrack, oldTrack){
 
 
 $(document).ready(function() {
-	
 	$('#RE').fadeTo(1000, 1, function(){
 		$('#SIS').fadeTo(1000, 1, function(){
 			$('#TOR').fadeTo(1000, 1, function(){
@@ -155,6 +154,7 @@ function playSongs(){
 				controlSize = ($(window).width() <= 700) ? '.small' : '.large';
 				$soundcloud.addClass('playing');
 				currentPlayingTrack.play();
+				ga('send', 'event', 'Soundcloud', 'Play', '&#39;' + currentTrack.title + '&#39;');
 				$(controlSize+'.pause').show();
 				$(controlSize+'.play').hide();
 			}
@@ -201,12 +201,12 @@ function playSongs(){
 }
 
 function addPhotos(photos){
-	$('#photoContainer').append('<a href="' + photos[0].link + '">' + '<img id="slide0" src="' + photos[0].images.low_resolution.url + '">' + '</a>');
+	$('#photoContainer').append('<a href="' + photos[0].link + '" onClick="ga(\'send\', \'event\',  \'Instagram\', &#39;' + photos[0].link + '&#39;);\">' + '<img id="slide0" src="' + photos[0].images.low_resolution.url + '">' + '</a>');
 	$('#slide0').addClass('active');
 	for(i=1;i<photos.length;i++){
 		photoUrl = photos[i].images.low_resolution.url;
 		photoLink = photos[i].link;
-		$('#photoContainer').append('<a href="' + photoLink + '">' + '<img id="slide' + (i) + '"' + 'src="' + photoUrl + '">' + '</a>');
+		$('#photoContainer').append('<a href="' + photoLink + '" onClick="ga(\'send\', \'event\', \'Instagram\', &#39;' + photoLink + '&#39;);>\">' + '<img id="slide' + (i) + '" src="' + photoUrl + '">' + '</a>');
 	}
 }
 
