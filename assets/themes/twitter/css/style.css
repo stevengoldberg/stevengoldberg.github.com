@@ -392,7 +392,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	border-radius:15px;
 	height:100%;
 	position:absolute;
-	left:10px;
+	left:4%;
 	top:0;
 	z-index:1;
 	border:2px solid #2c2c2c;
@@ -408,6 +408,10 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 }
 
 #instagram .controls{
+	display:none;
+}
+
+#mac_small{
 	display:none;
 }
 
@@ -485,7 +489,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	#tr909_small{
 		display:block;
 		width:320px;
-		margin:auto;
+		margin:0 auto 5px auto;
 	}
 	#soundcloud{
 		width:320px;
@@ -511,6 +515,32 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	}
 	
 	/* Instagram */
+	
+	#instagram{
+		width:320px;
+	}
+	
+	#photoContainer{
+		width:51%;
+		height:40%;
+		bottom:53%;
+		left:28%;
+	}
+	
+	#photoContainer a img{
+		left:5%;
+	}
+	
+	#mac{
+		display:none;
+	}
+	
+	#mac_small{
+		display:block;
+		width:320px;
+		margin:auto;
+		position:relative;
+	}
 	
 	#instagram .controls{
 		display:inline;

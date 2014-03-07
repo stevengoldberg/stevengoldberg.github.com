@@ -209,10 +209,10 @@ function playSongs(){
 }
 
 function addPhotos(photos){
-	$('#photoContainer').append('<a href="' + photos[0].link + '">' + '<img id="slide0" src="' + photos[0].images.standard_resolution.url + '">' + '</a>');
+	$('#photoContainer').append('<a href="' + photos[0].link + '">' + '<img id="slide0" src="' + photos[0].images.low_resolution.url + '">' + '</a>');
 	$('#slide0').addClass('active');
 	for(i=1;i<photos.length;i++){
-		photoUrl = photos[i].images.standard_resolution.url;
+		photoUrl = photos[i].images.low_resolution.url;
 		photoLink = photos[i].link;
 		$('#photoContainer').append('<a href="' + photoLink + '">' + '<img id="slide' + (i) + '"' + 'src="' + photoUrl + '">' + '</a>');
 	}
@@ -238,17 +238,7 @@ function rotatePhotos(photos){
 			$active.css('z-index',1).show().removeClass('active');
 			$prev.css('z-index',3).addClass('active');
 		    });
-	});
-	
-	/*window.setInterval(function() {
-		var $active = $('#photoContainer a img.active');
-		var $next = ($active.parent().next().length > 0) ? $active.parent().next().contents() : $('#photoContainer a:first img');
-		$next.css('z-index',2);
-		$active.fadeOut(1000,function(){
-			$active.css('z-index',1).show().removeClass('active');
-			$next.css('z-index',3).addClass('active');
-		    });
-		 }, 7000);*/
-	}
+	});	
+}
 
 
