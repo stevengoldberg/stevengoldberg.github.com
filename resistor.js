@@ -121,15 +121,7 @@ $(document).ready(function() {
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
 	playSongs();
 	getPhotos();
-	/*$('img#mac').tooltip({ position: { my: "center top", at: "center-12% center+37%" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
-	$( "img#mac" ).on( "tooltipclose", function( event, ui ) {
-		($(this).tooltip("disable"));
-		});
-	$('img#minimoog').tooltip({ position: { my: "center top", at: "left+24% center" }}, {show: false}, {hide: {delay: 4000, duration:1000}});
-	$( "img#minimoog" ).on( "tooltipclose", function( event, ui ) {
-		($(this).tooltip("disable"));
-		});*/
-	});
+});
 
 
 function getPhotos(){
