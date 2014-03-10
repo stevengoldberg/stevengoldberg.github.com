@@ -416,6 +416,49 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 }
 
 
+/* Live dates */
+
+@font-face{
+	font-family: dotmatrix;
+	src: url('fonts/DOTMATRI.TTF');
+}
+
+@font-face{
+	font-family: dotmatrix;
+	font-weight:bold;
+	src: url('fonts/DOTMBold.TTF');
+}
+
+#live{
+	position:relative;
+}
+
+#upcomingDates{
+	position:absolute;
+	top:1%;
+	left:21%;
+	width:57%;
+	height:44%;
+	color:#000000 !important;
+	font-family:dotmatrix;
+	overflow:hidden;
+}
+
+#upcomingDates h3{
+	font-weight:bold;
+	margin-bottom:0;
+}
+
+#upcomingDates ul{
+	list-style:none;
+	margin-left:0;
+}
+
+#upcomingDates ul a{
+	color:#000000;
+	font-weight:bold;
+}
+
 
 /* Small Screens */
 
@@ -549,15 +592,19 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	img.prevPhoto, img.nextPhoto{
 		display:none;
 	}
+	
+	#live{
+		display:none;
+	}
 }
 
 /* Animation */
 
 @keyframes glow{
-	0%{opacity:.7}
+	0%{opacity:.65}
 	100%{opacity:1;}
 }
 @-webkit-keyframes glow{
-	0%{opacity:.7}
+	0%{opacity:.65}
 	100%{opacity:1;}
 }

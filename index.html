@@ -3,11 +3,7 @@ layout: default
 title: RESISTOR
 ---
 
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script src="http://connect.soundcloud.com/sdk.js"></script>
-<script src="twitterFetcher_v10_min.js"></script>
-<script src="resistor.js?version=1.0"></script>
+
 
 <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
@@ -17,10 +13,10 @@ title: RESISTOR
 	<!--<div id="vincent">
 	</div>-->
 	<div id="tweet">
-		<img id="minimoog" src="/images/minimoog.png" title="Click the red knobs to view tweets.">
+		<img id="minimoog" src="/images/minimoog.jpg" title="Click the red knobs to view tweets.">
 		<img class="oscillator prevTweet" src="/images/oscillator2.png" onClick="ga('send', 'event', 'Twitter', 'Prev', 'Large');">
 		<img class="oscillator nextTweet" src="/images/oscillator2.png" onClick="ga('send', 'event', 'Twitter', 'Next', 'Large');">
-		<img id="minimoog_small" src="/images/minimoog_small.png">
+		<img id="minimoog_small" src="/images/minimoog_small.jpg">
 		<div id="text">
 		</div>
 		<div id="buttons">
@@ -34,8 +30,8 @@ title: RESISTOR
 	<div id="soundcloud">
 		<div id="title">
 		</div>
-		<img id="tr909" src="/images/909.png" title="Click the knobs to listen to songs.">
-		<img id="tr909_small" src="/images/909_small.png">
+		<img id="tr909" src="/images/909.jpg" title="Click the knobs to listen to songs.">
+		<img id="tr909_small" src="/images/909_small.jpg">
 		<a href="#" onClick="ga('send', 'event', 'Soundcloud', 'Prev', 'Large');"><img class="knob prevSong" src="/images/knob.png"></a>
 		<a href="#" onClick="ga('send', 'event', 'Soundcloud', 'Next', 'Large');"><img class="knob nextSong" src="/images/knob.png"></a>
 		<a href="#"><img class="play large" src="/images/play.png"></a><a href="#"><img class="pause large" src="/images/play.png"></a>
@@ -48,8 +44,8 @@ title: RESISTOR
 	</div>
 	<hr>
 	<div id="instagram">
-		<img id="mac" src="/images/mac.png" title="Click the red keys to view photos.">
-		<img id="mac_small" src="/images/mac_small.png">
+		<img id="mac" src="/images/mac.jpg" title="Click the red keys to view photos.">
+		<img id="mac_small" src="/images/mac_small.jpg">
 		<img class="prevPhoto" src="/images/next_key.png" onClick="ga('send', 'event', 'Instagram', 'Prev', 'Large');">
 		<img class="nextPhoto" src="/images/next_key.png" onClick="ga('send', 'event', 'Instagram', 'Next', 'Large');">
 		<div id="photoContainer">
@@ -58,7 +54,21 @@ title: RESISTOR
 			<span class="nextPhoto"><a href="#" onClick="ga('send', 'event', 'Instagram', 'Next', 'Small');">Next</a></span> | <span class="prevPhoto"><a href="#" onClick="ga('send', 'event', 'Instagram', 'Prev', 'Small');">Previous</a></span>
 		</div>
 	</div>
+	<hr>
+	<div id="live">
+		<img id="printer" src="images/printer.jpg" title="Upcoming live performances.">
+		<div id="upcomingDates">
+			<ul></ul>
+		</div>
+	</div>
 </div>
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="http://connect.soundcloud.com/sdk.js"></script>
+<script src="twitterFetcher_v10_min.js"></script>
+<script src="date.js"></script>
+<script src="resistor.js?version=1.1"></script>
+
 

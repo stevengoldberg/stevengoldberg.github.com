@@ -120,13 +120,12 @@ $(document).ready(function() {
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
 	playSongs();
 	getPhotos();
+	showDates();
 });
 
 
 function getPhotos(){
 	$.get('https://api.instagram.com/v1/users/252833323/media/recent/?client_id=027d4ba8024541bda9174d50c1592dfa', function(images){
-		console.log(images);
-		//showPhotos(images.data);
 		addPhotos(images.data);
 		rotatePhotos(images.data);
 	}, "jsonp");
@@ -231,6 +230,35 @@ function rotatePhotos(photos){
 			$prev.css('z-index',3).addClass('active');
 		    });
 	});	
+}
+
+function showDates(){
+	$.getJSON('shows.json')
+	.done(function(data){
+		$("#upcomingDates").prepend("<h3>Upcoming Shows</h3>");
+		for(i=0;i<data.shows.length;i++){
+			if(isUpcoming(data.shows[i])){
+				if(data.shows[i].url)
+				{
+					$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + ">" + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>")
+				}
+				else{
+					$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>")
+				}
+			}
+		}
+	})
+	.fail(function (jqxhr, textStatus, error ) {
+		var err = textStatus + ", " + error;
+		console.log( "Request Failed: " + err );
+	})
+}
+
+function isUpcoming(show){
+	var showDate = Date.parse(show.date);
+	var comparison = Date.today().compareTo(showDate);
+	if(comparison != 1){return true;}
+	else{return false;}
 }
 
 
