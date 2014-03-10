@@ -120,7 +120,9 @@ $(document).ready(function() {
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
 	playSongs();
 	getPhotos();
+	window.scrollReveal = new scrollReveal();
 	showDates();
+	playerStyle();
 });
 
 
@@ -259,6 +261,15 @@ function isUpcoming(show){
 	var comparison = Date.today().compareTo(showDate);
 	if(comparison != 1){return true;}
 	else{return false;}
+}
+
+function playerStyle(){
+	$('#soundcloud').watch('opacity', function(){
+		if(($(this).css('opacity')) == 1){
+			$(this).css({"opacity":".85", "transition": "opacity .6s", "-webkit-transition": "opacity .6s"});
+		}
+	})
+	
 }
 
 

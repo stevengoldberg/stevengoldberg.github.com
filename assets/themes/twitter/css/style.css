@@ -11,6 +11,7 @@ a:hover{
 	text-decoration:none;
 }
 
+
 /* Custom container */
 .container-narrow {
   margin: 0 auto;
@@ -227,9 +228,9 @@ a.twitter_retweet_icon:hover:after{
 
 #soundcloud{
 	position:relative;
-	opacity:.85;
+	/*opacity:.85;
 	transition: opacity .6s;
-	-webkit-transition: opacity .6s;
+	-webkit-transition: opacity .6s;*/
 	margin:auto;
 }
 

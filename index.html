@@ -12,7 +12,7 @@ title: RESISTOR
 	<span id="RE">RE</span><span id="SIS">SIS</span><span id="TOR">TOR</span>
 	<!--<div id="vincent">
 	</div>-->
-	<div id="tweet">
+	<div id="tweet" data-scroll-reveal="enter left ease-in-out 75px over 1s">
 		<img id="minimoog" src="/images/minimoog.jpg" title="Click the red knobs to view tweets.">
 		<img class="oscillator prevTweet" src="/images/oscillator2.png" onClick="ga('send', 'event', 'Twitter', 'Prev', 'Large');">
 		<img class="oscillator nextTweet" src="/images/oscillator2.png" onClick="ga('send', 'event', 'Twitter', 'Next', 'Large');">
@@ -27,7 +27,7 @@ title: RESISTOR
 		<span class="nextTweet"><a href="#" onClick="ga('send', 'event', 'Twitter', 'Next', 'Small');">Next</a></span> | <span class="prevTweet"><a href="#" onClick="ga('send', 'event', 'Twitter', 'Prev', 'Small');">Previous</a></span>
 	</div>
 	<hr>
-	<div id="soundcloud">
+	<div id="soundcloud" data-scroll-reveal="enter right ease-in-out 75px over 1s">
 		<div id="title">
 		</div>
 		<img id="tr909" src="/images/909.jpg" title="Click the knobs to listen to songs.">
@@ -43,7 +43,7 @@ title: RESISTOR
 		<span class="play small controls"><a href="#">Play</a> | </span><span class="pause small controls"><a href="#">Pause</a> | </span><span class="nextSong small controls"><a href="#" onClick="ga('send', 'event', 'Soundcloud', 'Next', 'Small');"> Next</a> | </span><span class="prevSong small controls"><a href="#" onClick="ga('send', 'event', 'Soundcloud', 'Prev', 'Small');"> Previous</a></span>
 	</div>
 	<hr>
-	<div id="instagram">
+	<div id="instagram" data-scroll-reveal="enter left ease-in-out 75px over 1s">
 		<img id="mac" src="/images/mac.jpg" title="Click the red keys to view photos.">
 		<img id="mac_small" src="/images/mac_small.jpg">
 		<img class="prevPhoto" src="/images/next_key.png" onClick="ga('send', 'event', 'Instagram', 'Prev', 'Large');">
@@ -55,7 +55,7 @@ title: RESISTOR
 		</div>
 	</div>
 	<hr>
-	<div id="live">
+	<div id="live" data-scroll-reveal="enter right ease-in-out 75px over 1s">
 		<img id="printer" src="images/printer.jpg" title="Upcoming live performances.">
 		<div id="upcomingDates">
 			<ul></ul>
@@ -67,8 +67,10 @@ title: RESISTOR
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script src="http://connect.soundcloud.com/sdk.js"></script>
-<script src="twitterFetcher_v10_min.js"></script>
-<script src="date.js"></script>
-<script src="resistor.js?version=1.1"></script>
-
+<script src="js/twitterFetcher_v10_min.js"></script>
+<script src="js/date.js"></script>
+<script src="js/scrollreveal.min.js"></script>
+<script src="js/jquery.watch.min.js"></script>
+<script src="js/typewriter-bundle.min.js"></script>
+<script src="js/resistor.js?version=1.1"></script>
 
