@@ -620,6 +620,13 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		width:320px;
 		margin-bottom:20px;
 	}
+	
+	#upcomingDates{
+		width:100%;
+		height:100%;
+		top:0;
+		left:0;
+	}
 }
 
 /* Animation */
