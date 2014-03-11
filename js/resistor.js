@@ -235,28 +235,34 @@ function rotatePhotos(photos){
 }
 
 function showDates(){
-	$.getJSON('shows.json')
-	.done(function(data){
-		$("#upcomingDates h3").text("Upcoming Shows");
-		for(i=0;i<data.shows.length;i++){
-			if(isUpcoming(data.shows[i])){
-				if(data.shows[i].url)
-				{
-					$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>")
+	var printed = false;
+	$('#soundcloud').watch('data-scroll-reveal', function(){	
+		if(($(this).attr('data-scroll-reveal-complete')) == "true" && !printed){	
+			$.getJSON('shows.json')
+			.done(function(data){
+				typewriter("shows_headline", "Upcoming Shows", 150);
+				for(i=0;i<data.shows.length;i++){
+					if(isUpcoming(data.shows[i])){
+						if(data.shows[i].url)
+						{
+							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>")
+						}
+						else{
+							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>")
+						}
+					$('#upcomingDates li a').click(function(e){
+						e.preventDefault();
+					});	
+					}
 				}
-				else{
-					$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>")
-				}
-			$('#upcomingDates li a').click(function(e){
-				e.preventDefault();
-			});	
-			}
+			})
+			.fail(function (jqxhr, textStatus, error ) {
+				var err = textStatus + ", " + error;
+				console.log( "Request Failed: " + err );
+			})
+		printed = true;
 		}
-	})
-	.fail(function (jqxhr, textStatus, error ) {
-		var err = textStatus + ", " + error;
-		console.log( "Request Failed: " + err );
-	})
+	});
 }
 
 function isUpcoming(show){
@@ -275,11 +281,15 @@ function playerStyle(){
 	
 }
 
-function typewriter(element, string){
-	for(var i=0; i<string.length; i++){
-		$(element).append(string.charAt(i));
-		window.setTimeout(25);
-	}
+function typewriter(element, string, speed){
+	var index = 0;
+	var intObject = setInterval(function() {
+		document.getElementById(element).innerHTML+=string[index];
+		index++;
+		if(index==string.length){
+			clearInterval(intObject);
+		}
+	}, speed);
 }
 
 
