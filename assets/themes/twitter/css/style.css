@@ -11,6 +11,13 @@ a:hover{
 	text-decoration:none;
 }
 
+.container-narrow > .content > .home > div{
+	margin-top:20px;
+}
+
+.container-narrow > .content > .home > div:last-of-type{
+	margin-bottom:30px;
+}
 
 /* Custom container */
 .container-narrow {
@@ -127,7 +134,8 @@ img.oscillator:hover{
 	position:relative;
 	text-align:left;
 	font-family:monospace;
-	margin:auto;
+	margin-left:auto;
+	margin-right:auto;
 	width:100%;
 }
 
@@ -356,7 +364,8 @@ img.play, img.pause{
 /* Instagram Widget */
 
 #instagram{
-	margin:auto;
+	margin-left:auto;
+	margin-right:auto;
 	position:relative;
 }
 

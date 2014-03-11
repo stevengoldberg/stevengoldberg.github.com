@@ -98,7 +98,7 @@ Rotation = function(tracks) {
 };
 
 function changeTitle(newTrack, oldTrack){
-	var titleHtml = "<a href='" + newTrack.permalink_url + "' onClick=ga('send', 'event', 'Soundcloud', 'Click', &#39;" + newTrack.title + "&#39;);>" + newTrack.title + "</a>";
+	var titleHtml = "<a href='" + newTrack.permalink_url + "' onClick=ga('send', 'event', 'Soundcloud', 'Click', " + newTrack.title + ");>" + newTrack.title + "</a>";
 	if(oldTrack){
 		$('#title').fadeOut(500, function(){
 			$('#title').html(titleHtml).fadeIn(500);
@@ -155,7 +155,7 @@ function playSongs(){
 				controlSize = ($(window).width() <= 700) ? '.small' : '.large';
 				$soundcloud.addClass('playing');
 				currentPlayingTrack.play();
-				ga('send', 'event', 'Soundcloud', 'Play', '&#39;' + currentTrack.title + '&#39;');
+				ga('send', 'event', 'Soundcloud', 'Play', currentTrack.title);
 				$(controlSize+'.pause').show();
 				$(controlSize+'.play').hide();
 			}
@@ -237,16 +237,19 @@ function rotatePhotos(photos){
 function showDates(){
 	$.getJSON('shows.json')
 	.done(function(data){
-		$("#upcomingDates").prepend("<h3>Upcoming Shows</h3>");
+		$("#upcomingDates h3").text("Upcoming Shows");
 		for(i=0;i<data.shows.length;i++){
 			if(isUpcoming(data.shows[i])){
 				if(data.shows[i].url)
 				{
-					$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + ">" + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>")
+					$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>")
 				}
 				else{
 					$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>")
 				}
+			$('#upcomingDates li a').click(function(e){
+				e.preventDefault();
+			});	
 			}
 		}
 	})
@@ -270,6 +273,13 @@ function playerStyle(){
 		}
 	})
 	
+}
+
+function typewriter(element, string){
+	for(var i=0; i<string.length; i++){
+		$(element).append(string.charAt(i));
+		window.setTimeout(25);
+	}
 }
 
 
