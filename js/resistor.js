@@ -129,7 +129,7 @@ $(document).ready(function() {
 function getPhotos(){
 	$.get('https://api.instagram.com/v1/users/252833323/media/recent/?client_id=027d4ba8024541bda9174d50c1592dfa', function(images){
 		addPhotos(images.data);
-		rotatePhotos(images.data);
+		rotatePhotos();
 	}, "jsonp");
 }
 
@@ -211,7 +211,7 @@ function addPhotos(photos){
 	}
 }
 
-function rotatePhotos(photos){
+function rotatePhotos(){
 	$('.nextPhoto').click(function(e){
 		e.preventDefault();
 		var $active = $('#photoContainer a img.active');
@@ -250,9 +250,6 @@ function showDates(){
 						else{
 							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>")
 						}
-					$('#upcomingDates li a').click(function(e){
-						e.preventDefault();
-					});	
 					}
 				}
 			})
