@@ -469,6 +469,10 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	font-weight:bold;
 }
 
+#printer_small{
+	display:none;
+}
+
 
 /* Small Screens */
 
@@ -603,8 +607,18 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		display:none;
 	}
 	
-	#live{
+	/* Live Dates */
+	
+	#printer{
 		display:none;
+	}
+	
+	#printer_small{
+		display:block;
+		margin-left:auto;
+		margin-right:auto;
+		width:320px;
+		margin-bottom:20px;
 	}
 }
 
