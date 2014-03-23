@@ -1,7 +1,22 @@
-SC.initialize({
+$(document).ready(function() {
+	window.scrollReveal = new scrollReveal();
+	$('#RE').fadeTo(1000, 1, function(){
+		$('#SIS').fadeTo(1000, 1, function(){
+			$('#TOR').fadeTo(1000, 1, function(){
+			});
+		});
+	});
+	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
+	playSongs();
+	getPhotos();
+	showDates();
+	playerStyle();
+});
+
+SC.initialize({										//Initialize soundcloud API
    client_id: "67f2822a454cafa2b800fc88cb5c0518",
    redirect_uri: 'http://stevengoldberg.github.io'
-  });
+});
 
 var numTweets = 20;
 
@@ -108,22 +123,6 @@ function changeTitle(newTrack, oldTrack){
 		$('#title').html(titleHtml).fadeIn(500);
 	}
 }
-
-
-$(document).ready(function() {
-	$('#RE').fadeTo(1000, 1, function(){
-		$('#SIS').fadeTo(1000, 1, function(){
-			$('#TOR').fadeTo(1000, 1, function(){
-			});
-		});
-	});
-	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets);
-	playSongs();
-	getPhotos();
-	window.scrollReveal = new scrollReveal();
-	showDates();
-	playerStyle();
-});
 
 
 function getPhotos(){
