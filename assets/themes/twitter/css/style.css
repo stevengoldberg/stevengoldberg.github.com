@@ -89,7 +89,7 @@ a:hover{
   
 .home{
 	text-align:center;
-	/*height:771px;*/
+	margin-bottom:30px;
 }
 
 #RE, #SIS, #TOR{
@@ -97,6 +97,18 @@ a:hover{
 	line-height:1em;
 	opacity:0;
 	font-family: 'Audiowide', cursive;
+	clip-path: url(#mask);
+	-webkit-clip-path: url(#mask);
+	display:inline-block;
+	transform:translateZ(1px);
+	-webkit-transform:translateZ(1px);
+	color: #EDFCFF;
+	text-shadow: 0 0 18px #10DAFF;
+}
+
+svg {
+  width: 100%;
+  height: 35px;
 }
 
 /* Minimoog Tweet Widget */

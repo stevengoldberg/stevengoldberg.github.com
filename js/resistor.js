@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	window.scrollReveal = new scrollReveal();
-	$('#RE').fadeTo(1000, 1, function(){
+	$('#RE').fadeTo(1500, 1, function(){
 		$('#SIS').fadeTo(1000, 1, function(){
 			$('#TOR').fadeTo(1000, 1, function(){
 			});
@@ -234,7 +234,9 @@ function rotatePhotos(){
 }
 
 function showDates(){
-	var printed = false;
+	var printed = false,
+	upcomingShows = 0;
+	
 	$('#soundcloud').watch('data-scroll-reveal', function(){	
 		if(($(this).attr('data-scroll-reveal-complete')) == "true" && !printed){	
 			$.getJSON('shows.json')
@@ -242,6 +244,7 @@ function showDates(){
 				typewriter("shows_headline", "Upcoming Shows", 150);
 				for(i=0;i<data.shows.length;i++){
 					if(isUpcoming(data.shows[i])){
+						upcomingShows++;
 						if(data.shows[i].url)
 						{
 							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>")
@@ -250,6 +253,9 @@ function showDates(){
 							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>")
 						}
 					}
+				}
+				if(upcomingShows === 0){
+					$("#upcomingDates ul").append("<li>" + "Shows TBD ... Check back soon ...");
 				}
 			})
 			.fail(function (jqxhr, textStatus, error ) {
