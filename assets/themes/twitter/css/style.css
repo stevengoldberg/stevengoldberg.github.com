@@ -100,6 +100,7 @@ a:hover{
 	clip-path: url(#mask);
 	-webkit-clip-path: url(#mask);
 	display:inline-block;
+	-ms-transform:translateZ(1px);
 	transform:translateZ(1px);
 	-webkit-transform:translateZ(1px);
 	color: #EDFCFF;
@@ -123,18 +124,14 @@ img.oscillator{
 img.oscillator.prevTweet{
 	top:22%;
 	cursor:pointer;
-	-moz-transition: all .2s ease;
 	-webkit-transition: all .2s ease;
-	-o-transition: all .2s ease;
 	transition: all .2s ease;
 }
 
 img.oscillator.nextTweet{
 	top:32%;
 	cursor:pointer;
-	-moz-transition: all .2s ease;
 	-webkit-transition: all .2s ease;
-	-o-transition: all .2s ease;
 	transition: all .2s ease;
 }
 
@@ -186,6 +183,7 @@ p.timePosted{
 	position:absolute;
 	left:50%;
 	top:52%;
+	-webkit-box-shadow:-1px 1px 1px 1px #684235;
 	box-shadow:-1px 1px 1px 1px #684235;
 	opacity:.8;
 }
@@ -306,9 +304,7 @@ img.knob{
 	position:absolute;
 	animation:glow .6s ease-in-out 0s infinite alternate forwards;
 	-webkit-animation:glow .6s ease-in-out 0s infinite alternate forwards;
-	-moz-transition: all .2s ease;
 	-webkit-transition: all .2s ease;
-	-o-transition: all .2s ease;
 	transition: all .2s ease;
 }
 
@@ -418,6 +414,8 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	top:0;
 	z-index:1;
 	border:2px solid #2c2c2c;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
 	box-sizing:border-box;
 }
 

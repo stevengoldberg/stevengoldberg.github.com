@@ -27,7 +27,7 @@ function handleTweets(tweets){
 		e.preventDefault();
 		prevRotation -= 40;
 		$('img.oscillator.prevTweet').css('transform','rotate(' + prevRotation + 'deg)');
-		currentTweet = (currentTweet==0) ? numTweets-1 : currentTweet-1;
+		currentTweet = (currentTweet===0) ? numTweets-1 : currentTweet-1;
 		$('#text').fadeOut(500, function() {
 			splitTweet(tweets[currentTweet]);
 			$('#text').fadeIn(500);
@@ -88,7 +88,7 @@ Rotation = function(tracks) {
         	nextTrackIndex = (currentIndex + 1) % tracks.length,
         	nextTrackId = tracks[nextTrackIndex];
         currentTrack = nextTrackId;
-        return currentTrack
+        return currentTrack;
     };
     this.prevTrack = function () {
         var currentIndex = tracks.indexOf(currentTrack),
@@ -98,7 +98,7 @@ Rotation = function(tracks) {
 			prevTrackIndex=(tracks.length)-1;
 		}
         currentTrack = prevTrackId;
-        return currentTrack
+        return currentTrack;
     };
 };
 
@@ -185,6 +185,8 @@ function playSongs(){
 }
 
 function addPhotos(photos){
+	var photoUrl = "",
+		photoLink = "";
 	$('#photoContainer').append('<a href="' + photos[0].link + '" onClick="ga(\'send\', \'event\',  \'Instagram\', &#39;' + photos[0].link + '&#39;);\">' + '<img id="slide0" src="' + photos[0].images.low_resolution.url + '">' + '</a>');
 	$('#slide0').addClass('active');
 	for(var i=1;i<photos.length;i++){
@@ -230,10 +232,10 @@ function showDates(){
 						upcomingShows++;
 						if(data.shows[i].url)
 						{
-							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>")
+							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>");
 						}
 						else{
-							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>")
+							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
 						}
 					}
 				}
@@ -244,7 +246,7 @@ function showDates(){
 			.fail(function (jqxhr, textStatus, error ) {
 				var err = textStatus + ", " + error;
 				console.log( "Request Failed: " + err );
-			})
+			});
 		printed = true;
 		}
 	});
@@ -264,7 +266,7 @@ function playerStyle(){
 		if(($(this).css('opacity')) == 1){
 			$(this).css({"opacity":".85", "transition": "opacity .6s", "-webkit-transition": "opacity .6s"});
 		}
-	})
+	});
 }
 
 function typewriter(element, string, speed){
