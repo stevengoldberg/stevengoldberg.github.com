@@ -127,6 +127,8 @@ function playSongs(){
 			currentTrack = rotation.currentTrack(),
 			currentPlayingTrack = new Track(currentTrack.uri),
 			$soundcloud = $('#soundcloud'),
+			$nextKnob = $('#soundcloud img.knob.nextSong'),
+			$prevKnob = $('#soundcloud img.knob.prevSong'),
 			controlSize = ($(window).width() <= 700) ? '.small' : '.large',
 			nextRotation = 0,
 			prevRotation = 0;		
@@ -161,7 +163,7 @@ function playSongs(){
 			currentPlayingTrack = new Track(currentTrack.uri);
 			changeTitle(currentTrack, true);
 			nextRotation += 40;
-			$('#soundcloud img.knob.nextSong').css('transform','rotate(' + nextRotation + 'deg)');
+			$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
 			if($soundcloud.hasClass('playing')){
 				currentPlayingTrack.play();
 			}
@@ -174,7 +176,7 @@ function playSongs(){
 			currentPlayingTrack = new Track(currentTrack.uri);
 			changeTitle(currentTrack, true);
 			prevRotation -= 40;
-			$('#soundcloud img.knob.prevSong').css('transform','rotate(' + prevRotation + 'deg)');
+			$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
 			if($soundcloud.hasClass('playing')){
 				currentPlayingTrack.play();
 			}
