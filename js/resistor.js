@@ -183,7 +183,7 @@ function playSongs(){
 			$soundcloud.removeClass('paused');
 		});
 	});
-	playerStyle(); // Fix the style of the song player after it enters
+	//playerStyle(); // Fix the style of the song player after it enters -- BREAKS FIREFOX
 }
 
 function addPhotos(photos){
@@ -224,34 +224,33 @@ function rotatePhotos(){
 function showDates(){
 	var printed = false,
 		upcomingShows = 0;
-	$('#live').watch('opacity', function(){	
-		if(($(this).css('opacity')) == 1 && !printed){	
-			$.getJSON('shows.json')
-			.done(function(data){
-				typewriter("shows_headline", "Upcoming Shows", 150);
-				for(var i=0;i<data.shows.length;i++){
-					if(isUpcoming(data.shows[i])){
-						upcomingShows++;
-						if(data.shows[i].url)
-						{
-							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>");
-						}
-						else{
-							$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
-						}
+	//$('#live').watch('opacity', function(){	
+	if(!printed){	
+		$.getJSON('shows.json')
+		.done(function(data){
+			typewriter("shows_headline", "Upcoming Shows", 150);
+			for(var i=0;i<data.shows.length;i++){
+				if(isUpcoming(data.shows[i])){
+					upcomingShows++;
+					if(data.shows[i].url)
+					{
+						$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>");
+					}
+					else{
+						$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
 					}
 				}
-				if(upcomingShows === 0){
-					$("#upcomingDates ul").append("<li>" + "Shows TBD ... Check back soon ..." + "</li>");
-				}
-			})
-			.fail(function (jqxhr, textStatus, error ) {
-				var err = textStatus + ", " + error;
-				console.log( "Request Failed: " + err );
-			});
-		printed = true;
-		}
-	});
+			}
+			if(upcomingShows === 0){
+				$("#upcomingDates ul").append("<li>" + "Shows TBD ... Check back soon ..." + "</li>");
+			}
+		})
+		.fail(function (jqxhr, textStatus, error ) {
+			var err = textStatus + ", " + error;
+			console.log( "Request Failed: " + err );
+		});
+	printed = true;
+	}
 }
 
 function isUpcoming(show){
@@ -265,7 +264,7 @@ function isUpcoming(show){
 
 function playerStyle(){
 	$('#soundcloud').watch('opacity', function(){
-		if(($(this).css('opacity')) == 1){
+		if(((this).style('opacity')) == 1){
 			$(this).css({"opacity":".85", "transition": "opacity .6s", "-webkit-transition": "opacity .6s"});
 		}
 	});
