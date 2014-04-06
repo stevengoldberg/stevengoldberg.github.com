@@ -12,7 +12,7 @@ $(document).ready(function() {
 			});
 		});
 	});
-	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets); // Print the tweets
+	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
 	playSongs(); // Load the music player
 	getPhotos(); // Load the photo viewer
 	showDates(); // Load the show dates 
@@ -227,22 +227,26 @@ function showDates(){
 	//$('#live').watch('opacity', function(){	
 	if(!printed){	
 		$.getJSON('shows.json')
-		.done(function(data){
-			typewriter("shows_headline", "Upcoming Shows", 150);
+		.success(function(data){
+			typewriter("upcoming_shows", "Upcoming Shows", 150);
+			typewriter("past_shows", "Past Shows", 150);
 			for(var i=0;i<data.shows.length;i++){
 				if(isUpcoming(data.shows[i])){
 					upcomingShows++;
 					if(data.shows[i].url)
 					{
-						$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>");
+						$("#upcoming_dates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>");
 					}
 					else{
-						$("#upcomingDates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
+						$("#upcoming_dates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
 					}
+				}
+				else{
+					$("#past_dates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
 				}
 			}
 			if(upcomingShows === 0){
-				$("#upcomingDates ul").append("<li>" + "Shows TBD ... Check back soon ..." + "</li>");
+				$("#upcoming_dates ul").append("<li>" + "Shows TBD ... Check back soon ..." + "</li>");
 			}
 		})
 		.fail(function (jqxhr, textStatus, error ) {
