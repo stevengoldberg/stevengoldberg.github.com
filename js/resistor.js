@@ -231,7 +231,7 @@ function showDates(){
 			typewriter("upcoming_shows", "Upcoming Shows", 150);
 			typewriter("past_shows", "Past Shows", 150);
 			for(var i=0;i<data.shows.length;i++){
-				if(isUpcoming(data.shows[i])){
+				if(isUpcoming(data.shows[i].date)){
 					upcomingShows++;
 					if(data.shows[i].url)
 					{
@@ -258,12 +258,14 @@ function showDates(){
 }
 
 function isUpcoming(show){
-	var showDate = Date.parse(show.date),
-		comparison = Date.today().compareTo(showDate);
-	if(comparison != 1)
-		{return true;}
-	else
-		{return false;}
+	var today = Date.now(),
+		compare = new Date(show);
+	if(today < compare){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 function playerStyle(){
