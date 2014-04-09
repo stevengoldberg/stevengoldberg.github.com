@@ -39,7 +39,6 @@ function playSongs(){
 			}
 			else{
 				$soundcloud.addClass('playing');
-				ga('send', 'event', 'Soundcloud', 'Play', rotation.title);
 				$(controlSize+'.pause').show();
 				$(controlSize+'.play').hide();
 			}
@@ -73,6 +72,7 @@ function Rotation(tracks, firstSong) {
 		$soundcloud = $('#soundcloud'),
 		_percentComplete = 0;
     	_currentTrack = tracks[_trackIndex];
+	this.title = tracks[_trackIndex].title;
     SC.stream(tracks[_trackIndex].uri, function(sound){
 		_song = sound;
 	});
@@ -87,7 +87,8 @@ function Rotation(tracks, firstSong) {
 	    newSong.call(this, tracks[_trackIndex]);
 	};
 	this.play = function(){
-        _song.play({
+        ga('send', 'event', 'Soundcloud', 'Play', this.title);
+		_song.play({
 			onfinish: function(){ // When a song ends, start the next song
 				$('.nextSong').click();
        	 	},
@@ -108,6 +109,7 @@ function Rotation(tracks, firstSong) {
 			_song = sound;
 		});
 		changeTitle(track, true);
+		this.title = track.title;
 		if($soundcloud.hasClass('playing')){
 			this.play();
 		}
