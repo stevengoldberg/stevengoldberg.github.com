@@ -18,6 +18,115 @@ $(document).ready(function() {
 	showDates(); // Load the show dates 
 });
 
+function playSongs(){
+	var	firstSong = 1,
+		$soundcloud = $('#soundcloud'),
+		$nextKnob = $('#soundcloud img.knob.nextSong'),
+		$prevKnob = $('#soundcloud img.knob.prevSong'),
+		controlSize = ($(window).width() <= 700) ? '.small' : '.large',
+		nextRotation = 0,
+		prevRotation = 0;
+	SC.get('/users/11021442/tracks', function(songs){
+		var rotation = new Rotation(songs, firstSong);	
+		changeTitle(songs[firstSong]);	
+		$('.play').on('click', function(e){
+			e.preventDefault();
+			rotation.play();
+			if($soundcloud.hasClass('paused')){
+				$soundcloud.removeClass('paused').addClass('playing');
+				$(controlSize+'.pause').show();
+				$(controlSize+'.play').hide();
+			}
+			else{
+				$soundcloud.addClass('playing');
+				ga('send', 'event', 'Soundcloud', 'Play', rotation.title);
+				$(controlSize+'.pause').show();
+				$(controlSize+'.play').hide();
+			}
+		});
+		$('.pause').on('click', function(e){
+			e.preventDefault();
+			rotation.pause();
+			$soundcloud.addClass('paused').removeClass('playing');
+			$(controlSize+'.pause').hide();
+			$(controlSize+'.play').show();
+		});
+		$('.nextSong').on('click', function(e){
+			e.preventDefault();
+			rotation.nextTrack();
+			nextRotation += 40;
+			$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
+		});
+		$('.prevSong').on('click', function(e){
+			e.preventDefault();
+			rotation.prevTrack();
+			prevRotation -= 40;
+			$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
+		});
+	});
+	//playerStyle(); // Fix the style of the song player after it enters -- BREAKS FIREFOX
+}
+
+function Rotation(tracks, firstSong) {
+	var _trackIndex = firstSong,
+		_song = "",
+		$soundcloud = $('#soundcloud'),
+		_percentComplete = 0;
+    	_currentTrack = tracks[_trackIndex];
+    SC.stream(tracks[_trackIndex].uri, function(sound){
+		_song = sound;
+	});
+	this.nextTrack = function(){
+		_song.stop();
+		_trackIndex = tracks[_trackIndex+1] ? _trackIndex+1 : 0;
+	    newSong.call(this, tracks[_trackIndex]);
+	}
+    this.prevTrack = function(){
+		_song.stop();
+		_trackIndex = tracks[_trackIndex-1] ? _trackIndex-1 : tracks.length-1;
+	    newSong.call(this, tracks[_trackIndex]);
+	};
+	this.play = function(){
+        _song.play({
+			onfinish: function(){ // When a song ends, start the next song
+				$('.nextSong').click();
+       	 	},
+			whileplaying: function(){ // While a song is playing, update the progress bar
+				_percentComplete = ((this.position / this.duration) * 100);
+				$('#progress').css('width', _percentComplete + '%');
+			}
+		});
+    };
+    this.pause = function() {
+        _song.togglePause();
+    };
+    this.stop = function() {
+        _song.stop();
+    };
+	function newSong(track){
+	    SC.stream(track.uri, function(sound){
+			_song = sound;
+		});
+		changeTitle(track, true);
+		if($soundcloud.hasClass('playing')){
+			this.play();
+		}
+		$soundcloud.removeClass('paused');
+	};
+}
+
+function changeTitle(newTrack, oldTrack){
+	var titleHtml = "<a href='" + newTrack.permalink_url + "' onClick=ga('send', 'event', 'Soundcloud', 'Click', " + newTrack.title + ");>" + newTrack.title + "</a>";
+	if(oldTrack){
+		$('#title').fadeOut(500, function(){
+			$('#title').html(titleHtml).fadeIn(500);
+		});
+	}
+	else{ // If changing tracks, fade the old one out first
+		$('#title').html(titleHtml).fadeIn(500);
+	}
+}
+
 function handleTweets(tweets){
     var currentTweet = 0,
 		prevRotation = 0,
@@ -54,136 +163,11 @@ function splitTweet(tweet){
 	$('#buttons').html(buttons);
 }
 
-Track = function (trackId){
-    var currentTrack = "";
-    SC.stream(trackId, function(sound){
-        currentTrack = sound;
-	});
-    this.play = function() {
-        currentTrack.play({
-			onfinish: function(){ // When a song ends, start the next song
-        	$('.nextSong').click();
-       	 	},
-			whileplaying: function(){ // While a song is playing, update the progress bar
-				var percentComplete = ((this.position / this.duration) * 100);
-				$('#progress').css('width', percentComplete + '%');
-			}
-		});
-    };
-    this.pause = function() {
-        currentTrack.togglePause();
-    };
-    this.stop = function() {
-        currentTrack.stop();
-    };
-};
-
-Rotation = function(tracks) {
-    var currentTrack = tracks[1];
-    this.currentTrack = function() {
-        return currentTrack;
-    };
-    this.nextTrack = function () {
-        var currentIndex = tracks.indexOf(currentTrack),
-        	nextTrackIndex = (currentIndex + 1) % tracks.length,
-        	nextTrackId = tracks[nextTrackIndex];
-        currentTrack = nextTrackId;
-        return currentTrack;
-    };
-    this.prevTrack = function () {
-        var currentIndex = tracks.indexOf(currentTrack),
-        	prevTrackIndex = (currentIndex - 1),
-			prevTrackId = tracks[prevTrackIndex];
-		if(prevTrackIndex<0){
-			prevTrackIndex=(tracks.length)-1;
-		}
-        currentTrack = prevTrackId;
-        return currentTrack;
-    };
-};
-
-function changeTitle(newTrack, oldTrack){
-	var titleHtml = "<a href='" + newTrack.permalink_url + "' onClick=ga('send', 'event', 'Soundcloud', 'Click', " + newTrack.title + ");>" + newTrack.title + "</a>";
-	if(oldTrack){
-		$('#title').fadeOut(500, function(){
-			$('#title').html(titleHtml).fadeIn(500);
-		});
-	}
-	else{ // If changing tracks, fade the old one out first
-		$('#title').html(titleHtml).fadeIn(500);
-	}
-}
-
 function getPhotos(){
 	$.get('https://api.instagram.com/v1/users/252833323/media/recent/?client_id=027d4ba8024541bda9174d50c1592dfa', function(images){
 		addPhotos(images.data);
 		rotatePhotos();
 	}, "jsonp");
-}
-
-function playSongs(){
-	SC.get('/users/11021442/tracks', function(songs){
-		var rotation = new Rotation(songs),
-			currentTrack = rotation.currentTrack(),
-			currentPlayingTrack = new Track(currentTrack.uri),
-			$soundcloud = $('#soundcloud'),
-			$nextKnob = $('#soundcloud img.knob.nextSong'),
-			$prevKnob = $('#soundcloud img.knob.prevSong'),
-			controlSize = ($(window).width() <= 700) ? '.small' : '.large',
-			nextRotation = 0,
-			prevRotation = 0;		
-		changeTitle(currentTrack);
-		$('.play').on('click', function(e){
-			e.preventDefault();
-			if($soundcloud.hasClass('paused')){
-				$soundcloud.removeClass('paused').addClass('playing');
-				currentPlayingTrack.pause();
-				$(controlSize+'.pause').show();
-				$(controlSize+'.play').hide();
-			}
-			else{
-				$soundcloud.addClass('playing');
-				currentPlayingTrack.play();
-				ga('send', 'event', 'Soundcloud', 'Play', currentTrack.title);
-				$(controlSize+'.pause').show();
-				$(controlSize+'.play').hide();
-			}
-		});
-		$('.pause').on('click', function(e){
-			e.preventDefault();
-			currentPlayingTrack.pause();
-			$soundcloud.addClass('paused').removeClass('playing');
-			$(controlSize+'.pause').hide();
-			$(controlSize+'.play').show();
-		});
-		$('.nextSong').on('click', function(e){
-			e.preventDefault();
-			currentPlayingTrack.stop();
-			currentTrack = rotation.nextTrack();
-			currentPlayingTrack = new Track(currentTrack.uri);
-			changeTitle(currentTrack, true);
-			nextRotation += 40;
-			$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
-			if($soundcloud.hasClass('playing')){
-				currentPlayingTrack.play();
-			}
-			$soundcloud.removeClass('paused');
-		});
-		$('.prevSong').on('click', function(e){
-			e.preventDefault();
-			currentPlayingTrack.stop();
-			currentTrack = rotation.prevTrack();
-			currentPlayingTrack = new Track(currentTrack.uri);
-			changeTitle(currentTrack, true);
-			prevRotation -= 40;
-			$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
-			if($soundcloud.hasClass('playing')){
-				currentPlayingTrack.play();
-			}
-			$soundcloud.removeClass('paused');
-		});
-	});
-	//playerStyle(); // Fix the style of the song player after it enters -- BREAKS FIREFOX
 }
 
 function addPhotos(photos){
