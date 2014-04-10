@@ -21,46 +21,59 @@ $(document).ready(function() {
 function playSongs(){
 	var	firstSong = 1,
 		$soundcloud = $('#soundcloud'),
-		$nextKnob = $('#soundcloud img.knob.nextSong'),
-		$prevKnob = $('#soundcloud img.knob.prevSong'),
-		controlSize = ($(window).width() <= 700) ? '.small' : '.large',
+		$nextKnob = $('.knob.nextSong'),
+		$prevKnob = $('.knob.prevSong'),
+		$nextSong = $('.nextSong'),
+		$prevSong = $('.prevSong'),
+		$pause = $('.pause'),
+		$play = $('.play'),
+		$button = $('.button'),
 		nextRotation = 0,
 		prevRotation = 0;
 	SC.get('/users/11021442/tracks', function(songs){
 		var rotation = new Rotation(songs, firstSong);	
 		changeTitle(songs[firstSong]);	
-		$('.play').on('click', function(e){
+		($play).on('click', function(e){
 			e.preventDefault();
 			rotation.play();
 			if($soundcloud.hasClass('paused')){
 				$soundcloud.removeClass('paused').addClass('playing');
-				$(controlSize+'.pause').show();
-				$(controlSize+'.play').hide();
+				$pause.show();
+				$play.hide();
 			}
 			else{
 				$soundcloud.addClass('playing');
-				$(controlSize+'.pause').show();
-				$(controlSize+'.play').hide();
+				$pause.show();
+				$play.hide();
 			}
 		});
-		$('.pause').on('click', function(e){
+		$pause.on('click', function(e){
 			e.preventDefault();
 			rotation.pause();
 			$soundcloud.addClass('paused').removeClass('playing');
-			$(controlSize+'.pause').hide();
-			$(controlSize+'.play').show();
+			$pause.hide();
+			$play.show();
 		});
-		$('.nextSong').on('click', function(e){
+		$nextSong.on('click', function(e){
 			e.preventDefault();
 			rotation.nextTrack();
 			nextRotation += 40;
 			$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
 		});
-		$('.prevSong').on('click', function(e){
+		$prevSong.on('click', function(e){
 			e.preventDefault();
 			rotation.prevTrack();
 			prevRotation -= 40;
 			$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
+		});
+		$button.on('click', function(e){
+			e.preventDefault();
+			if($soundcloud.hasClass('playing')){
+				$pause.click();
+			}
+			else{
+				$play.click();
+			}
 		});
 	});
 	//playerStyle(); // Fix the style of the song player after it enters -- BREAKS FIREFOX

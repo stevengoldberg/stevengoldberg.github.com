@@ -11,6 +11,10 @@ a:hover{
 	text-decoration:none;
 }
 
+span{
+	font-family:audiowide;
+}
+
 .home{
 	text-align:center;
 }
@@ -100,7 +104,6 @@ a:hover{
 	font-size:8em;
 	line-height:1em;
 	opacity:0;
-	font-family: 'Audiowide', cursive;
 	clip-path: url(#mask);
 	-webkit-clip-path: url(#mask);
 	display:inline-block;
@@ -304,7 +307,7 @@ a.twitter_retweet_icon:hover:after{
 	opacity:1;
 }
 
-img.knob{
+.knob{
 	position:absolute;
 	animation:glow .6s ease-in-out 0s infinite alternate forwards;
 	-webkit-animation:glow .6s ease-in-out 0s infinite alternate forwards;
@@ -312,33 +315,31 @@ img.knob{
 	transition: all .2s ease;
 }
 
-img.knob.prevSong{
+.knob.prevSong{
 	left:30.5%;
 	bottom:35%;
 }
 
-img.knob.nextSong{
+.knob.nextSong{
 	left:85%;
 	bottom:35.5%;
 }
 
 .controls{
 	margin-top:5px;
-	font-size:1.2em;
 }
 
-#soundcloud span.large{
+#soundcloud span{
 	position:absolute;
-	font-family:audiowide;
 	display:inline;
 	bottom: 43%;
 }
 
-#soundcloud span.large a{
+#soundcloud span a{
 	color:#555E5E;
 }
 
-#soundcloud span.large.play{
+#soundcloud span.play{
 	left:9%;
 }
 
@@ -347,19 +348,15 @@ img.knob.nextSong{
 	display:none;
 }
 
-#soundcloud img.pause{
-	display:none;
-}
-
-#soundcloud span.large.prevSong{
+#soundcloud span.prevSong{
 	left:28%;
 }
 
-#soundcloud span.large.nextSong{
+#soundcloud span.nextSong{
 	left:84%;
 }
 
-img.play, img.pause{
+.button{
 	position:absolute;
 	left:9%;
 	bottom:35%;
@@ -513,6 +510,11 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		font-size:3.8em;
 	}
 	
+	.control{
+		margin-right:5px;
+		font-size:1.2em;
+	}
+	
 	/*Twitter */
 	
 	#minimoog{
@@ -580,19 +582,17 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		width:320px;
 	}
 	
-	#soundcloud .large{
-		display:none !important;
-	}
-	#soundcloud span.small{
-		display:inline;
-	}
-	
-	#soundcloud span.small.pause{
+	#soundcloud img.large{
 		display:none;
 	}
-	
+	#soundcloud span{
+		position:static;
+	}
+	#soundcloud span a{
+		color:#66B8E0;
+	}
 	#progress_container{
-		bottom:29.5%;
+		bottom:31%;
 	}
 	
 	#soundcloud img.knob{
