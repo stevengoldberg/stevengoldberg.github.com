@@ -587,6 +587,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	}
 	#soundcloud span{
 		position:static;
+		display:inline;
 	}
 	#soundcloud span a{
 		color:#66B8E0;

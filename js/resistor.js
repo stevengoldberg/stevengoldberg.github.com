@@ -32,7 +32,8 @@ function playSongs(){
 		prevRotation = 0;
 	SC.get('/users/11021442/tracks', function(songs){
 		var rotation = new Rotation(songs, firstSong);	
-		changeTitle(songs[firstSong]);	
+		rotation.init();
+		//changeTitle(songs[firstSong]);	
 		($play).on('click', function(e){
 			e.preventDefault();
 			rotation.play();
@@ -56,13 +57,13 @@ function playSongs(){
 		});
 		$nextSong.on('click', function(e){
 			e.preventDefault();
-			rotation.nextTrack();
+			rotation.changeIndex("forward");
 			nextRotation += 40;
 			$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
 		});
 		$prevSong.on('click', function(e){
 			e.preventDefault();
-			rotation.prevTrack();
+			rotation.changeIndex();
 			prevRotation -= 40;
 			$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
 		});
@@ -80,54 +81,60 @@ function playSongs(){
 }
 
 function Rotation(tracks, firstSong) {
-	var _trackIndex = firstSong,
-		_song = "",
-		$soundcloud = $('#soundcloud'),
-		_percentComplete = 0;
-    	_currentTrack = tracks[_trackIndex];
-	this.title = tracks[_trackIndex].title;
-    SC.stream(tracks[_trackIndex].uri, function(sound){
-		_song = sound;
-	});
-	this.nextTrack = function(){
-		_song.stop();
-		_trackIndex = tracks[_trackIndex+1] ? _trackIndex+1 : 0;
-	    newSong.call(this, tracks[_trackIndex]);
-	}
-    this.prevTrack = function(){
-		_song.stop();
-		_trackIndex = tracks[_trackIndex-1] ? _trackIndex-1 : tracks.length-1;
-	    newSong.call(this, tracks[_trackIndex]);
-	};
-	this.play = function(){
-        ga('send', 'event', 'Soundcloud', 'Play', this.title);
-		_song.play({
-			onfinish: function(){ // When a song ends, start the next song
-				$('.nextSong').click();
-       	 	},
-			whileplaying: function(){ // While a song is playing, update the progress bar
-				_percentComplete = ((this.position / this.duration) * 100);
-				$('#progress').css('width', _percentComplete + '%');
-			}
-		});
-    };
-    this.pause = function() {
-        _song.togglePause();
-    };
-    this.stop = function() {
-        _song.stop();
-    };
-	function newSong(track){
+	this.trackIndex = firstSong;
+    this.currentTrack = tracks[this.trackIndex];
+	this.title = this.currentTrack.title;
+	this.tracks = tracks;
+	this.$soundcloud = $('#soundcloud');
+	this.percentComplete = 0;
+}
+
+Rotation.prototype = {
+	init: function(){
+    	this.newSong(this.currentTrack, false);
+		},
+	newSong: function(track, fade){
 	    SC.stream(track.uri, function(sound){
-			_song = sound;
+			song = sound;
 		});
-		changeTitle(track, true);
+		changeTitle(track, fade);
 		this.title = track.title;
-		if($soundcloud.hasClass('playing')){
+		if(this.$soundcloud.hasClass('playing')){
 			this.play();
 		}
-		$soundcloud.removeClass('paused');
-	};
+		this.$soundcloud.removeClass('paused');
+	},
+    changeIndex: function(direction){
+		song.stop();
+		if(direction=="forward"){
+			this.trackIndex = (this.trackIndex + 1) % this.tracks.length;
+		}
+		else{
+			this.trackIndex = (this.trackIndex + this.tracks.length-1) % this.tracks.length;
+		}
+		this.currentTrack = this.tracks[this.trackIndex];
+	    this.newSong(this.currentTrack, true);
+	},
+	play: function(){
+        ga('send', 'event', 'Soundcloud', 'Play', this.title);
+		song.play({
+			onfinish: function(){ // When a song ends, start the next song
+				$('.nextSong').click();
+				//nextTrack.call(rotation);
+       	 	},
+			whileplaying: function(){ // While a song is playing, update the progress bar
+				this.percentComplete = ((this.position / this.duration) * 100);
+				$('#progress').css('width', this.percentComplete + '%');
+			}
+		});
+    },
+    pause: function() {
+        song.togglePause();
+    },
+    stop: function() {
+        song.stop();
+		this.percentComplete = 0;
+    }
 }
 
 function changeTitle(newTrack, oldTrack){
