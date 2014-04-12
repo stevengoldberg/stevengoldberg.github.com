@@ -135,7 +135,7 @@ Rotation.prototype = {
         song.stop();
 		this.percentComplete = 0;
     }
-}
+};
 
 function changeTitle(newTrack, oldTrack){
 	var titleHtml = "<a href='" + newTrack.permalink_url + "' onClick=ga('send', 'event', 'Soundcloud', 'Click', " + newTrack.title + ");>" + newTrack.title + "</a>";
@@ -151,24 +151,21 @@ function changeTitle(newTrack, oldTrack){
 
 function handleTweets(tweets){
     var currentTweet = 0,
-		prevRotation = 0,
-		nextRotation = 0;
+		nextRotation = 0,
+		prevRotation = 0;
 	splitTweet(tweets[currentTweet]); // Print the current tweet
-	$('.prevTweet').click(function(e){ // Rotate the knob, fade out the text, replace it with the previous tweet in the list
+	$('.nextTweet, .prevTweet').click(function(e){ //Rotate the knob, fade out the text, replace it with the next tweet in the list
 		e.preventDefault();
-		prevRotation -= 40;
-		$('img.oscillator.prevTweet').css('transform','rotate(' + prevRotation + 'deg)');
-		currentTweet = (currentTweet===0) ? numTweets-1 : currentTweet-1;
-		$('#text').fadeOut(500, function() {
-			splitTweet(tweets[currentTweet]);
-			$('#text').fadeIn(500);
-		});
-	});
-	$('.nextTweet').click(function(e){ //Rotate the knob, fade out the text, replace it with the next tweet in the list
-		e.preventDefault();
-		nextRotation += 40;
-		$('img.oscillator.nextTweet').css('transform','rotate(' + nextRotation + 'deg)');
-		currentTweet = (currentTweet + 1) % numTweets;
+		if((e.currentTarget.classList[1]) == ('nextTweet')){
+			nextRotation += 40;
+			currentTweet = (currentTweet + 1) % numTweets;
+			$(this).css('transform','rotate(' + nextRotation + 'deg)');
+			}
+		else{
+			prevRotation -= 40;
+			currentTweet = (currentTweet + numTweets-1) % numTweets;
+			$(this).css('transform','rotate(' + prevRotation + 'deg)');
+		}
 		$('#text').fadeOut(500, function() {
 			splitTweet(tweets[currentTweet]);
 			$('#text').fadeIn(500);
