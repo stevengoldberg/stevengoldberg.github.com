@@ -32,7 +32,6 @@ function playSongs(){
 	SC.get('/users/11021442/tracks', function(songs){
 		var rotation = {
 			trackIndex: 1,
-			percentComplete: 0,
 			song: {},
 			init: function(){
 				this.currentTrack = songs[this.trackIndex];
@@ -78,7 +77,6 @@ function playSongs(){
 		    },
 		    stop: function() {
 		        this.song.stop();
-				this.percentComplete = 0;
 		    }
 		};
 		
