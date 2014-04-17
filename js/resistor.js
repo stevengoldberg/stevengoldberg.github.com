@@ -19,8 +19,7 @@ $(document).ready(function() {
 });
 
 function playSongs(){
-	var	firstSong = 1,
-		$soundcloud = $('#soundcloud'),
+	var	$soundcloud = $('#soundcloud'),
 		$nextKnob = $('.knob.nextSong'),
 		$prevKnob = $('.knob.prevSong'),
 		$nextSong = $('.nextSong'),
@@ -31,9 +30,59 @@ function playSongs(){
 		nextRotation = 0,
 		prevRotation = 0;
 	SC.get('/users/11021442/tracks', function(songs){
-		var rotation = new Rotation(songs, firstSong);	
+		var rotation = {
+			trackIndex: 1,
+			percentComplete: 0,
+			song: {},
+			init: function(){
+				this.currentTrack = songs[this.trackIndex];
+				this.title = this.currentTrack.title;
+		    	this.newSong(this.currentTrack, false);
+				},
+			newSong: function(track, fade){
+			    SC.stream(track.uri, function(sound){
+					rotation.song = sound;
+				});
+				changeTitle(track, fade);
+				this.title = track.title;
+				if($soundcloud.hasClass('playing')){
+					this.play();
+				}
+				$soundcloud.removeClass('paused');
+			},
+		    changeIndex: function(direction){
+				this.song.stop();
+				if(direction=="forward"){
+					this.trackIndex = (this.trackIndex + 1) % songs.length;
+				}
+				else{
+					this.trackIndex = (this.trackIndex + songs.length-1) % songs.length;
+				}
+				this.currentTrack = songs[this.trackIndex];
+			    this.newSong(this.currentTrack, true);
+			},
+			play: function(){
+		        ga('send', 'event', 'Soundcloud', 'Play', this.title);
+				this.song.play({
+					onfinish: function(){ // When a song ends, start the next song
+						rotation.changeIndex("forward");
+		       	 	},
+					whileplaying: function(){ // While a song is playing, update the progress bar
+						this.percentComplete = ((this.position / this.duration) * 100);
+						$('#progress').css('width', this.percentComplete + '%');
+					}
+				});
+		    },
+		    pause: function() {
+		        this.song.togglePause();
+		    },
+		    stop: function() {
+		        this.song.stop();
+				this.percentComplete = 0;
+		    }
+		};
+		
 		rotation.init();
-		//changeTitle(songs[firstSong]);	
 		($play).on('click', function(e){
 			e.preventDefault();
 			rotation.play();
@@ -79,63 +128,6 @@ function playSongs(){
 	});
 	//playerStyle(); // Fix the style of the song player after it enters -- BREAKS FIREFOX
 }
-
-function Rotation(tracks, firstSong) {
-	this.trackIndex = firstSong;
-    this.currentTrack = tracks[this.trackIndex];
-	this.title = this.currentTrack.title;
-	this.tracks = tracks;
-	this.$soundcloud = $('#soundcloud');
-	this.percentComplete = 0;
-}
-
-Rotation.prototype = {
-	init: function(){
-    	this.newSong(this.currentTrack, false);
-		},
-	newSong: function(track, fade){
-	    SC.stream(track.uri, function(sound){
-			song = sound;
-		});
-		changeTitle(track, fade);
-		this.title = track.title;
-		if(this.$soundcloud.hasClass('playing')){
-			this.play();
-		}
-		this.$soundcloud.removeClass('paused');
-	},
-    changeIndex: function(direction){
-		song.stop();
-		if(direction=="forward"){
-			this.trackIndex = (this.trackIndex + 1) % this.tracks.length;
-		}
-		else{
-			this.trackIndex = (this.trackIndex + this.tracks.length-1) % this.tracks.length;
-		}
-		this.currentTrack = this.tracks[this.trackIndex];
-	    this.newSong(this.currentTrack, true);
-	},
-	play: function(){
-        ga('send', 'event', 'Soundcloud', 'Play', this.title);
-		song.play({
-			onfinish: function(){ // When a song ends, start the next song
-				$('.nextSong').click();
-				//nextTrack.call(rotation);
-       	 	},
-			whileplaying: function(){ // While a song is playing, update the progress bar
-				this.percentComplete = ((this.position / this.duration) * 100);
-				$('#progress').css('width', this.percentComplete + '%');
-			}
-		});
-    },
-    pause: function() {
-        song.togglePause();
-    },
-    stop: function() {
-        song.stop();
-		this.percentComplete = 0;
-    }
-};
 
 function changeTitle(newTrack, oldTrack){
 	var titleHtml = "<a href='" + newTrack.permalink_url + "' onClick=ga('send', 'event', 'Soundcloud', 'Click', " + newTrack.title + ");>" + newTrack.title + "</a>";
