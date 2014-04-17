@@ -55,15 +55,29 @@ function playSongs(){
 				this.song.stop();
 				if(direction=="forward"){
 					this.trackIndex = (this.trackIndex + 1) % songs.length;
+					nextRotation += 40;
+					$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
 				}
 				else{
 					this.trackIndex = (this.trackIndex + songs.length-1) % songs.length;
+					prevRotation -= 40;
+					$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
 				}
 				this.currentTrack = songs[this.trackIndex];
 			    this.newSong(this.currentTrack, true);
 			},
 			play: function(){
 		        ga('send', 'event', 'Soundcloud', 'Play', this.title);
+				if($soundcloud.hasClass('paused')){
+					$soundcloud.removeClass('paused').addClass('playing');
+					$pause.show();
+					$play.hide();
+				}
+				else{
+					$soundcloud.addClass('playing');
+					$pause.show();
+					$play.hide();
+				}
 				this.song.play({
 					onfinish: function(){ // When a song ends, start the next song
 						rotation.changeIndex("forward");
@@ -76,6 +90,9 @@ function playSongs(){
 		    },
 		    pause: function() {
 		        this.song.togglePause();
+				$soundcloud.addClass('paused').removeClass('playing');
+				$pause.hide();
+				$play.show();
 		    },
 		    stop: function() {
 		        this.song.stop();
@@ -83,46 +100,29 @@ function playSongs(){
 		};
 		
 		rotation.init();
-		($play).on('click', function(e){
+		$play.on('click', function(e){
 			e.preventDefault();
 			rotation.play();
-			if($soundcloud.hasClass('paused')){
-				$soundcloud.removeClass('paused').addClass('playing');
-				$pause.show();
-				$play.hide();
-			}
-			else{
-				$soundcloud.addClass('playing');
-				$pause.show();
-				$play.hide();
-			}
 		});
 		$pause.on('click', function(e){
 			e.preventDefault();
 			rotation.pause();
-			$soundcloud.addClass('paused').removeClass('playing');
-			$pause.hide();
-			$play.show();
 		});
 		$nextSong.on('click', function(e){
 			e.preventDefault();
 			rotation.changeIndex("forward");
-			nextRotation += 40;
-			$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
 		});
 		$prevSong.on('click', function(e){
 			e.preventDefault();
 			rotation.changeIndex();
-			prevRotation -= 40;
-			$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
 		});
 		$button.on('click', function(e){
 			e.preventDefault();
 			if($soundcloud.hasClass('playing')){
-				$pause.click();
+				rotation.pause();
 			}
 			else{
-				$play.click();
+				rotation.play();
 			}
 		});
 	});
