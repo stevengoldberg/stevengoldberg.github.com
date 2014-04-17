@@ -33,6 +33,8 @@ function playSongs(){
 		var rotation = {
 			trackIndex: 1,
 			song: {},
+			currentTrack: {},
+			title: "",
 			init: function(){
 				this.currentTrack = songs[this.trackIndex];
 				this.title = this.currentTrack.title;
