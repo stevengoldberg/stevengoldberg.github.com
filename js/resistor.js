@@ -41,8 +41,9 @@ function playSongs(){
 		    	this.newSong(this.currentTrack, false);
 				},
 			newSong: function(track, fade){
+				var that = this;
 			    SC.stream(track.uri, function(sound){
-					rotation.song = sound;
+					that.song = sound;
 				});
 				changeTitle(track, fade);
 				this.title = track.title;
