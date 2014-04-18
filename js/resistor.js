@@ -13,8 +13,8 @@ $(document).ready(function() {
 		});
 	});
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
-	playSongs(); // Load the music player
-	getPhotos(); // Load the photo viewer
+	songPlayer(); // Load the music player
+	photoViewer(); // Load the photo viewer
 	showDates(); // Load the show dates 
 });
 
@@ -178,7 +178,7 @@ function splitTweet(tweet){
 	$('#buttons').html(buttons);
 }
 
-function getPhotos(){
+function photoViewer(){
 	$.get('https://api.instagram.com/v1/users/252833323/media/recent/?client_id=027d4ba8024541bda9174d50c1592dfa', function(images){
 		addPhotos(images.data);
 		rotatePhotos();
