@@ -30,45 +30,47 @@ function playSongs(){
 		nextRotation = 0,
 		prevRotation = 0;
 	SC.get('/users/11021442/tracks', function(songs){
-		var rotation = {
-			trackIndex: 1,
-			song: {},
-			currentTrack: {},
-			title: "",
-			init: function(){
-				this.currentTrack = songs[this.trackIndex];
-				this.title = this.currentTrack.title;
-		    	this.newSong(this.currentTrack, false);
-				},
-			newSong: function(track, fade){
-				var that = this;
+		var rotation = function(){
+			//private variables
+			var trackIndex,
+			song = {},
+			currentTrack = {},
+			title = "";
+			//initialization
+			trackIndex = 1;
+			currentTrack = songs[trackIndex];
+			title = currentTrack.title;
+			//public interface	
+		return {	
+			newSong: function(fade){
+				var track = currentTrack;
 			    SC.stream(track.uri, function(sound){
-					that.song = sound;
+					song = sound;
 				});
 				changeTitle(track, fade);
-				this.title = track.title;
+				title = track.title;
 				if($soundcloud.hasClass('playing')){
-					this.play();
+					rotation.play();
 				}
 				$soundcloud.removeClass('paused');
 			},
 		    changeIndex: function(direction){
-				this.song.stop();
+				song.stop();
 				if(direction=="forward"){
-					this.trackIndex = (this.trackIndex + 1) % songs.length;
+					trackIndex = (trackIndex + 1) % songs.length;
 					nextRotation += 40;
 					$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
 				}
 				else{
-					this.trackIndex = (this.trackIndex + songs.length-1) % songs.length;
+					trackIndex = (trackIndex + songs.length-1) % songs.length;
 					prevRotation -= 40;
 					$prevKnob.css('transform','rotate(' + prevRotation + 'deg)');
 				}
-				this.currentTrack = songs[this.trackIndex];
-			    this.newSong(this.currentTrack, true);
+				currentTrack = songs[trackIndex];
+			    rotation.newSong(true);
 			},
 			play: function(){
-		        ga('send', 'event', 'Soundcloud', 'Play', this.title);
+		        ga('send', 'event', 'Soundcloud', 'Play', title);
 				if($soundcloud.hasClass('paused')){
 					$soundcloud.removeClass('paused').addClass('playing');
 					$pause.show();
@@ -79,7 +81,7 @@ function playSongs(){
 					$pause.show();
 					$play.hide();
 				}
-				this.song.play({
+				song.play({
 					onfinish: function(){ // When a song ends, start the next song
 						rotation.changeIndex("forward");
 		       	 	},
@@ -90,17 +92,18 @@ function playSongs(){
 				});
 		    },
 		    pause: function() {
-		        this.song.togglePause();
+		        song.togglePause();
 				$soundcloud.addClass('paused').removeClass('playing');
 				$pause.hide();
 				$play.show();
 		    },
 		    stop: function() {
-		        this.song.stop();
+		        song.stop();
 		    }
 		};
+	}();
 		
-		rotation.init();
+		rotation.newSong(false);
 		$play.on('click', function(e){
 			e.preventDefault();
 			rotation.play();
