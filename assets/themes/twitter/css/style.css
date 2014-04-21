@@ -21,6 +21,7 @@ span{
 
 .container-narrow > .content > .home > div{
 	margin-top:20px;
+	max-width:700px;
 }
 
 .container-narrow > .content > .home > div:last-of-type{
@@ -252,9 +253,9 @@ a.twitter_retweet_icon:hover:after{
 
 #soundcloud{
 	position:relative;
-	/*opacity:.85;
+	opacity:.85;
 	transition: opacity .6s;
-	-webkit-transition: opacity .6s;*/
+	-webkit-transition: opacity .6s;
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -499,6 +500,10 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 #video{
 	position:relative;
 	z-index:2;
+}
+
+#video span a{
+	color:#e3d7b8;
 }
 
 #video object{

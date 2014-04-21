@@ -5,7 +5,6 @@ SC.initialize({										//Initialize soundcloud API
 
 $(document).ready(function() {
 	numTweets = 20;
-	window.scrollReveal = new scrollReveal(); // Activate scrollReveal plugin for sliding element entrances
 	$('#RE').fadeTo(1000, 1, function(){	// Fade in the headline in 3 parts
 		$('#SIS').fadeTo(1000, 1, function(){
 			$('#TOR').fadeTo(1000, 1, function(){
@@ -131,7 +130,6 @@ function songPlayer(){
 			}
 		});
 	});
-	//playerStyle(); // Fix the style of the song player after it enters -- BREAKS FIREFOX
 }
 
 function changeTitle(newTrack, oldTrack){
@@ -268,14 +266,6 @@ function isUpcoming(show){
 	}
 }
 
-function playerStyle(){
-	$('#soundcloud').watch('opacity', function(){
-		if(((this).style('opacity')) == 1){
-			$(this).css({"opacity":".85", "transition": "opacity .6s", "-webkit-transition": "opacity .6s"});
-		}
-	});
-}
-
 function typewriter(element, string, speed){
 	var index = 0;
 	var	intObject = setInterval(function() {
@@ -340,7 +330,6 @@ function onVideoPlayerStateChange(newState){
 	}
 }
 
-
 function fullScreenVideo(player){
 	var videoWidth = screen.width,
 		videoHeight = videoWidth / 16 * 9;
@@ -352,12 +341,16 @@ function fullScreenVideo(player){
 	
 	if (player.requestFullScreen) {
 	  	player.requestFullScreen();
+		player.playVideo();
 	} else if (player.mozRequestFullScreen) {
 	  	player.mozRequestFullScreen();
+		player.playVideo();
 	} else if (player.webkitRequestFullScreen) {
 	  	player.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+		player.playVideo();
 	} else if (player.msRequestFullscreen) {
 		player.msRequestFullscreen();
+		player.playVideo();
 	}
 	player.setAttribute("width", videoWidth + "px");
 	player.setAttribute("height", videoHeight + "px");
@@ -380,6 +373,5 @@ function exitFullscreenVideo(player){
 		    }
 		player.setAttribute("width", "549px");
 		player.setAttribute("height", "309px");	
-		player.setAttribute("fullscreen", "false");			
 	}
 }
