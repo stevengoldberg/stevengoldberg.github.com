@@ -292,8 +292,9 @@ function onYouTubePlayerReady(playerId) {
 function playVideo(player){
 	var $play = $('#video .play'),
 		$pause = $('#video .pause'),
+		$capture = $('#click-capture'),
 		$fullScreen = $('#video .fullscreen');
-	$play.click(function(e){
+	$play.add($capture).click(function(e){
 		e.preventDefault();
 		player.playVideo();
 	});

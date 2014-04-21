@@ -513,6 +513,15 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	z-index:-1;
 }
 
+#click-capture{
+	position:absolute;
+	top:75px;
+	left:75px;
+	height:309px;
+	width:549px;
+	z-index:2;
+}
+
 #video object:-webkit-full-screen{
 	top:0;
 	left:0;
