@@ -94,7 +94,10 @@ span{
   color: #FFF; }
   
 /* Home Page */
-  
+
+.home div span a{
+color:#555E5E;
+}  
 
 #RE, #SIS, #TOR{
 	font-size:8em;
@@ -115,7 +118,7 @@ svg {
   height: 0px;
 }
 
-/* Minimoog Tweet Widget */
+/* Tweet Widget */
 
 img.oscillator{
 	position:absolute;
@@ -252,6 +255,8 @@ a.twitter_retweet_icon:hover:after{
 	/*opacity:.85;
 	transition: opacity .6s;
 	-webkit-transition: opacity .6s;*/
+	margin-left:auto;
+	margin-right:auto;
 }
 
 #tr909_small{
@@ -328,10 +333,6 @@ a.twitter_retweet_icon:hover:after{
 	position:absolute;
 	display:inline;
 	bottom: 43%;
-}
-
-#soundcloud span a{
-	color:#555E5E;
 }
 
 #soundcloud span.play{
@@ -493,12 +494,72 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	margin:0;
 }
 
+/* Video Player */
+
+#video{
+	position:relative;
+	z-index:2;
+}
+
+#video object{
+	position:absolute;
+	top:75px;
+	left:75px;
+	z-index:-1;
+}
+
+#video object:-webkit-full-screen{
+	top:0;
+	left:0;
+}
+
+#video object:full-screen{
+	top:0;
+	left:0;
+}
+
+#video object:fullscreen{
+	top:0;
+	left:0;
+}
+
+#video object:-ms-fullscreen{
+	top:0;
+	left:0;
+}
+
+#video object:-moz-full-screen{
+	top:0;
+	left:0;
+}
+
+#video .play, #video .pause{
+	position:absolute;
+	bottom:8%;
+	left:30%;
+	font-size:1.4em;
+}
+
+#video .pause{
+	display:none;
+}
+
+#video .fullscreen{
+	position:absolute;
+	bottom:8%;
+	right:30%;
+	font-size:1.4em;
+}
+
 
 /* Small Screens */
 
 @media screen and (max-width:700px){
 	body{
 		padding:0;
+	}
+	.home div span a{
+		color:#66B8E0;
 	}
 	
 	#RE, #SIS, #TOR{
@@ -583,9 +644,6 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	#soundcloud span{
 		position:static;
 		display:inline;
-	}
-	#soundcloud span a{
-		color:#66B8E0;
 	}
 	#progress_container{
 		bottom:31%;

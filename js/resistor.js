@@ -16,6 +16,7 @@ $(document).ready(function() {
 	songPlayer(); // Load the music player
 	photoViewer(); // Load the photo viewer
 	showDates(); // Load the show dates 
+	loadVideo(); // Load the video player
 });
 
 function songPlayer(){
@@ -24,8 +25,8 @@ function songPlayer(){
 		$prevKnob = $('.knob.prevSong'),
 		$nextSong = $('.nextSong'),
 		$prevSong = $('.prevSong'),
-		$pause = $('.pause'),
-		$play = $('.play'),
+		$pause = $('#soundcloud .pause'),
+		$play = $('#soundcloud .play'),
 		$button = $('.button'),
 		nextRotation = 0,
 		prevRotation = 0;
@@ -284,4 +285,101 @@ function typewriter(element, string, speed){
 			clearInterval(intObject);
 		}
 	}, speed);
+}
+
+function loadVideo(){
+	var params = { allowScriptAccess: "always" },
+		atts = { id: "myytplayer" };
+	swfobject.embedSWF("http://www.youtube.com/v/ToJSB43V_JU?controls=0&enablejsapi=1&fs=1&modestbranding=1&rel=0&showinfo=0&version=3&playerapiid=ytplayer",
+	                       "narcissist", "549", "309", "8", null, null, params, atts);
+}
+
+function onYouTubePlayerReady(playerId) {
+	var videoPlayer = document.getElementById("myytplayer");
+	playVideo(videoPlayer);
+}
+
+function playVideo(player){
+	var $play = $('#video .play'),
+		$pause = $('#video .pause'),
+		$fullScreen = $('#video .fullscreen');
+	$play.click(function(e){
+		e.preventDefault();
+		player.playVideo();
+	});
+	$pause.click(function(e){
+		e.preventDefault();
+		player.pauseVideo();
+	});
+	$fullScreen.click(function(e){
+		e.preventDefault();
+		fullScreenVideo(player);
+	});
+	player.addEventListener("onStateChange", "onVideoPlayerStateChange");
+}
+
+function onVideoPlayerStateChange(newState){
+	var $play = $('#video .play'),
+		$pause = $('#video .pause'),
+		player = document.getElementById("myytplayer");
+		
+	switch(newState){
+	case 1:
+		$play.hide();
+		$pause.show();
+		break;
+	case 2:
+		$pause.hide();
+		$play.show();
+		break;
+	case 0:
+		$pause.hide();
+		$play.show();
+		exitFullscreenVideo(player);
+		break;
+	}
+}
+
+
+function fullScreenVideo(player){
+	var videoWidth = screen.width,
+		videoHeight = videoWidth / 16 * 9;
+	
+	document.addEventListener("fullscreenchange", function(){exitFullscreenVideo(player)}, false);
+	document.addEventListener("mozfullscreenchange", function(){exitFullscreenVideo(player)}, false);
+	document.addEventListener("webkitfullscreenchange", function(){exitFullscreenVideo(player)}, false);
+	document.addEventListener("msfullscreenchange", function(){exitFullscreenVideo(player)}, false);
+	
+	if (player.requestFullScreen) {
+	  	player.requestFullScreen();
+	} else if (player.mozRequestFullScreen) {
+	  	player.mozRequestFullScreen();
+	} else if (player.webkitRequestFullScreen) {
+	  	player.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+	} else if (player.msRequestFullscreen) {
+		player.msRequestFullscreen();
+	}
+	player.setAttribute("width", videoWidth + "px");
+	player.setAttribute("height", videoHeight + "px");
+	
+	window.addEventListener("keydown", function(){exitFullscreenVideo(player)}, true);
+}
+
+function exitFullscreenVideo(player){
+	var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+	
+	if(!fullscreenElement){
+		if (player.exitFullscreen) {
+		      player.exitFullscreen();
+		    } else if (player.msExitFullscreen) {
+		      player.msExitFullscreen();
+		    } else if (player.mozCancelFullScreen) {
+		      player.mozCancelFullScreen();
+		    } else if (player.webkitExitFullscreen) {
+		      player.webkitExitFullscreen();
+		    }
+		player.setAttribute("width", "549px");
+		player.setAttribute("height", "309px");	
+		player.setAttribute("fullscreen", "false");			
+	}
 }
