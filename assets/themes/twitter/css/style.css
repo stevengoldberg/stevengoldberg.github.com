@@ -95,10 +95,6 @@ span{
   
 /* Home Page */
   
-{
-	text-align:center;
-	margin-bottom:30px;
-}
 
 #RE, #SIS, #TOR{
 	font-size:8em;
@@ -256,7 +252,6 @@ a.twitter_retweet_icon:hover:after{
 	/*opacity:.85;
 	transition: opacity .6s;
 	-webkit-transition: opacity .6s;*/
-	margin:auto;
 }
 
 #tr909_small{

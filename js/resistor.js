@@ -18,7 +18,7 @@ $(document).ready(function() {
 	showDates(); // Load the show dates 
 });
 
-function playSongs(){
+function songPlayer(){
 	var	$soundcloud = $('#soundcloud'),
 		$nextKnob = $('.knob.nextSong'),
 		$prevKnob = $('.knob.prevSong'),
