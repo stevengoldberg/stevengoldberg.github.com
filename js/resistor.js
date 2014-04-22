@@ -310,7 +310,7 @@ function typewriter(element, string, speed){
 
 function loadVideo(){
 	var tag = document.createElement('script');
-	tag.src = "https://www.youtube.com/iframe_api";
+	tag.src = "http://www.youtube.com/iframe_api";
 	var firstScriptTag = document.getElementsByTagName('script')[0];
 	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
@@ -318,12 +318,6 @@ function loadVideo(){
 var player;
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('narcissist', {
-		playerVars: {
-			controls: 0,
-			modestbranding: 1,
-			rel: 0,
-			showinfo: 0
-		},
         events: {
         	'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -383,7 +377,7 @@ function onPlayerStateChange(newState){
 		player = document.getElementById("myytplayer"),
 		played = false;
 		
-	switch(newState){
+	switch(newState.data){
 	case 1:
 		$play.hide();
 		$pause.show();
