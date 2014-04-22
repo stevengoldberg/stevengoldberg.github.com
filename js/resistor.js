@@ -314,7 +314,7 @@ function typewriter(element, string, speed){
 function loadVideo(){
 	var params = { allowScriptAccess: "always" },
 		atts = { id: "myytplayer" };
-	swfobject.embedSWF("http://www.youtube.com/v/ToJSB43V_JU?controls=0&enablejsapi=1&fs=1&modestbranding=1&rel=0&showinfo=0&version=3&playerapiid=ytplayer",
+	swfobject.embedSWF("http://www.youtube.com/v/ToJSB43V_JU?controls=0&enablejsapi=1&fs=1&modestbranding=1&rel=0&showinfo=0&version=3&playerapiid=myytplayer",
 	                       "narcissist", "549", "309", "8", null, null, params, atts);
 }
 
@@ -329,6 +329,14 @@ function onYouTubePlayerReady(playerId) {
 }
 
 function playVideo(player){
+	if(typeof player.getPlayerState != "function"){
+		var error = document.createElement('div');
+		error.className = 'error';
+		error.innerHTML = "There was an error loading the video player. Please view the site in Chrome or Firefox, or \<a href=\"https://www.youtube.com/watch?&v=ToJSB43V_JU\"\>click here to watch on Youtube.\</a\>";
+		var container = document.getElementById('video');
+		var returnedNode = container.replaceChild(error, player);
+	}
+	
 	var $play = $('#video .play'),
 		$pause = $('#video .pause'),
 		$capture = $('#click-capture'),

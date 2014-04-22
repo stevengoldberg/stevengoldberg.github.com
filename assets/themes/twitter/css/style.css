@@ -565,6 +565,13 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	font-size:1.4em;
 }
 
+#video .error{
+	position:absolute;
+	width:75%;
+	left:12%;
+	bottom:50%;
+	z-index:3;
+}
 
 /* Small Screens */
 
