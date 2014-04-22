@@ -318,12 +318,8 @@ function loadVideo(){
 var player;
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('narcissist', {
-    	height: '309',
-        width: '549',
-        videoId: 'ToJSB43V_JU',
 		playerVars: {
 			controls: 0,
-			enablejsapi: 1,
 			modestbranding: 1,
 			rel: 0,
 			showinfo: 0
