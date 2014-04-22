@@ -753,6 +753,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		bottom:45%;
 		width:75%;
 		left:12%;
+		z-index:3;
 	}
 }
 
