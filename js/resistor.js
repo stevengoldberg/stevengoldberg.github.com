@@ -12,11 +12,45 @@ $(document).ready(function() {
 		});
 	});
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
+	loadImages(); // Load images based on screen size
 	songPlayer(); // Load the music player
 	photoViewer(); // Load the photo viewer
 	showDates(); // Load the show dates 
 	loadVideo(); // Load the video player
+	$(window).resize(loadImages);
 });
+
+function loadImages(){
+	var contentWidth = $(window).width(),
+		$responsiveImages = $('.home .responsive'),
+		mobile = $('.home').attr('mobile'),
+		player = document.getElementById("myytplayer");
+		
+	if ((mobile == 'false' || !mobile) && (contentWidth < 700)){
+    	$responsiveImages.each(function(){
+        	var thisImg = $(this);
+        	var newSrc = thisImg.attr('src').replace('large', 'small');
+        	thisImg.attr('src', newSrc);
+			$('.home').attr('mobile', 'true');
+			if(player){
+				player.setAttribute("width", "250");
+				player.setAttribute("height", "141");
+			}
+        });
+    }
+	else if(mobile && (contentWidth > 700)){
+    	$responsiveImages.each(function(){
+        	var thisImg = $(this);
+        	var newSrc = thisImg.attr('src').replace('small', 'large');
+        	thisImg.attr('src', newSrc);
+			$('.home').attr('mobile', 'false');
+			if(player){	
+				player.setAttribute("width", "549px");
+				player.setAttribute("height", "309px");	
+			}
+        });
+	} 
+}
 
 function songPlayer(){
 	var	$soundcloud = $('#soundcloud'),
@@ -285,7 +319,12 @@ function loadVideo(){
 }
 
 function onYouTubePlayerReady(playerId) {
-	var videoPlayer = document.getElementById("myytplayer");
+	var videoPlayer = document.getElementById("myytplayer"),
+		contentWidth = $(window).width();
+	if(contentWidth < 700){	
+		videoPlayer.setAttribute("width", "250");
+		videoPlayer.setAttribute("height", "141");
+	}
 	playVideo(videoPlayer);
 }
 
@@ -296,6 +335,9 @@ function playVideo(player){
 		$fullScreen = $('#video .fullscreen');
 	$play.add($capture).click(function(e){
 		e.preventDefault();
+		if(player.getPlayerState() == -1 || player.getPlayerState() == 0){
+			ga('send', 'event', 'Youtube', 'Play', "Narcissist Trailer");
+		}
 		player.playVideo();
 	});
 	$pause.click(function(e){
@@ -312,7 +354,8 @@ function playVideo(player){
 function onVideoPlayerStateChange(newState){
 	var $play = $('#video .play'),
 		$pause = $('#video .pause'),
-		player = document.getElementById("myytplayer");
+		player = document.getElementById("myytplayer"),
+		played = false;
 		
 	switch(newState){
 	case 1:
@@ -326,6 +369,7 @@ function onVideoPlayerStateChange(newState){
 	case 0:
 		$pause.hide();
 		$play.show();
+		played = false;
 		exitFullscreenVideo(player);
 		break;
 	}
@@ -342,16 +386,12 @@ function fullScreenVideo(player){
 	
 	if (player.requestFullScreen) {
 	  	player.requestFullScreen();
-		player.playVideo();
 	} else if (player.mozRequestFullScreen) {
 	  	player.mozRequestFullScreen();
-		player.playVideo();
 	} else if (player.webkitRequestFullScreen) {
 	  	player.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-		player.playVideo();
 	} else if (player.msRequestFullscreen) {
 		player.msRequestFullscreen();
-		player.playVideo();
 	}
 	player.setAttribute("width", videoWidth + "px");
 	player.setAttribute("height", videoHeight + "px");

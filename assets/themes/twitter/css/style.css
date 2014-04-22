@@ -580,7 +580,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		font-size:3.8em;
 	}
 	
-	.control{
+	.content > .home > div span.control{
 		margin-right:5px;
 		font-size:1.2em;
 	}
@@ -588,13 +588,11 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	/*Twitter */
 	
 	#minimoog{
-		display:none;
-	}
-	#minimoog_small{
 		display:block;
 		width:320px;
 		margin:auto;
 	}
+	
 	#tweet{
 		width:320px;
 	}
@@ -641,13 +639,11 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	/* Soundcloud */
 	
 	#tr909{
-		display:none;
-	}
-	#tr909_small{
 		display:block;
 		width:320px;
 		margin:0 auto 5px auto;
 	}
+	
 	#soundcloud{
 		width:320px;
 	}
@@ -685,10 +681,6 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	}
 	
 	#mac{
-		display:none;
-	}
-	
-	#mac_small{
 		display:block;
 		width:320px;
 		margin:auto;
@@ -706,16 +698,13 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	/* Live Dates */
 	
 	#printer{
-		display:none;
-	}
-	
-	#printer_small{
 		display:block;
 		margin-left:auto;
 		margin-right:auto;
 		width:320px;
 		margin-bottom:20px;
 	}
+	
 	
 	#live{
 		width:320px;
@@ -734,6 +723,36 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		height:50%;
 		top:50%;
 		left:0;
+	}
+	
+	#video{
+		width:320px;
+		margin-left:auto;
+		margin-right:auto;
+		position:relative;
+	}
+	#video object, #click-capture{
+		top:33px;
+		left:35px;
+	}
+	#click-capture{
+		width:250px;
+		height:141px;
+	}
+	
+	#video .fullscreen{
+		font-size:1.2em;
+		right:15%;
+	}
+	#video .play, #video .pause{
+		font-size:1.2em;
+		left:15%;
+	}
+	#narcissist{
+		position:absolute;
+		bottom:45%;
+		width:75%;
+		left:12%;
 	}
 }
 
