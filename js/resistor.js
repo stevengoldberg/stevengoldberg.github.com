@@ -329,13 +329,6 @@ function onYouTubePlayerReady(playerId) {
 }
 
 function playVideo(player){
-	if(typeof player.getPlayerState != "function"){
-		var error = document.createElement('div');
-		error.className = 'error';
-		error.innerHTML = "There was an error loading the video player. Please view the site in Chrome or Firefox, or \<a href=\"https://www.youtube.com/watch?&v=ToJSB43V_JU\"\>click here to watch on Youtube.\</a\>";
-		var container = document.getElementById('video');
-		var returnedNode = container.replaceChild(error, player);
-	}
 	
 	var $play = $('#video .play'),
 		$pause = $('#video .pause'),
@@ -343,10 +336,19 @@ function playVideo(player){
 		$fullScreen = $('#video .fullscreen');
 	$play.add($capture).click(function(e){
 		e.preventDefault();
-		if(player.getPlayerState() == -1 || player.getPlayerState() == 0){
-			ga('send', 'event', 'Youtube', 'Play', "Narcissist Trailer");
+		if(typeof player.getPlayerState != "function"){
+			var error = document.createElement('div');
+			error.className = 'error';
+			error.innerHTML = "There was an error loading the video player. Please view the site in Chrome or Firefox, or \<a href=\"https://www.youtube.com/watch?&v=ToJSB43V_JU\"\>click here to watch on Youtube.\</a\>";
+			var container = document.getElementById('video');
+			var returnedNode = container.replaceChild(error, player);
 		}
-		player.playVideo();
+		else{ 
+			if(player.getPlayerState() == -1 || player.getPlayerState() == 0){
+				ga('send', 'event', 'Youtube', 'Play', "Narcissist Trailer");
+			}
+			player.playVideo();
+		}
 	});
 	$pause.click(function(e){
 		e.preventDefault();
