@@ -366,9 +366,9 @@ function playVideo(){
 		$fullScreen = $('#video .fullscreen');
 	$play.add($capture).click(function(e){
 		e.preventDefault();
-		/*if(player.getPlayerState() == -1 || player.getPlayerState() == 0){
+		if(player.getPlayerState() == -1 || player.getPlayerState() == 0){
 			ga('send', 'event', 'Youtube', 'Play', "Narcissist Trailer");
-		}*/
+		}
 		player.playVideo();
 	});
 	$pause.click(function(e){
