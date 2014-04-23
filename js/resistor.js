@@ -393,7 +393,7 @@ function onPlayerStateChange(newState){
 	case 0:
 		$pause.hide();
 		$play.show();
-		exitFullscreenVideo(player);
+		exitFullscreenVideo();
 		break;
 	}
 }
@@ -403,10 +403,6 @@ function fullScreenVideo(player){
 		videoHeight = videoWidth / 16 * 9,
 		container = document.getElementById('narcissist');
 	
-	/*document.addEventListener("fullscreenchange", function(){exitFullscreenVideo(player)}, false);
-	document.addEventListener("mozfullscreenchange", function(){exitFullscreenVideo(player)}, false);
-	document.addEventListener("webkitfullscreenchange", function(){exitFullscreenVideo(player)}, false);
-	document.addEventListener("msfullscreenchange", function(){exitFullscreenVideo(player)}, false);*/
 	
 	if (container.requestFullScreen) {
 	  	container.requestFullScreen();
@@ -417,12 +413,11 @@ function fullScreenVideo(player){
 	} else if (container.msRequestFullscreen) {
 		container.msRequestFullscreen();
 	}
-	//player.setSize(videoWidth, videoHeight);
 	
-	window.addEventListener("keydown", function(){exitFullscreenVideo(container)}, true);
+	window.addEventListener("keydown", exitFullscreenVideo, true);
 }
 
-function exitFullscreenVideo(player){
+function exitFullscreenVideo(){
 	var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
 	
 	if(fullscreenElement){
@@ -435,6 +430,5 @@ function exitFullscreenVideo(player){
 		    } else if (document.webkitExitFullscreen) {
 		      document.webkitExitFullscreen();
 		    }
-		//player.setSize(549, 309);
 	}
 }
