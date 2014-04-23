@@ -310,7 +310,7 @@ function typewriter(element, string, speed){
 
 function loadVideo(){
 	var tag = document.createElement('script');
-	tag.src = "http://www.youtube.com/iframe_api";
+	tag.src = "https://www.youtube.com/iframe_api";
 	var firstScriptTag = document.getElementsByTagName('script')[0];
 	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
@@ -318,6 +318,16 @@ function loadVideo(){
 var player;
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('narcissist', {
+		width: '549',
+		height: '309',
+		videoId: 'ToJSB43V_JU',
+		playerVars: {
+			controls: 0,
+			modestbranding: 1,
+			playsinline: 1,
+			showinfo: 0,
+			rel: 0
+		},
         events: {
         	'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -325,13 +335,14 @@ function onYouTubeIframeAPIReady() {
 		});
 }
 	
-	/*var params = { allowScriptAccess: "always" },
-		atts = { id: "myytplayer" };
-	swfobject.embedSWF("http://www.youtube.com/v/ToJSB43V_JU?controls=0&enablejsapi=1&fs=1&modestbranding=1&rel=0&showinfo=0&version=3&playerapiid=ytplayer",
-	                       "narcissist", "549", "309", "8", null, null, params, atts);
-}*/
-
 function onPlayerReady(event){
+	var mobile = ( navigator.userAgent.match(/(mobi)/gi) ? true : false );
+	if(mobile){
+		$('#click-capture').hide();
+		$('.fullscreen').hide();
+		$('#narcissist').css('z-index', 3);
+		$('#video .play').hide();
+	}
 	var	contentWidth = $(window).width();
 	if(contentWidth < 700){	
 		player.setSize(250, 141);
@@ -339,15 +350,6 @@ function onPlayerReady(event){
 	playVideo();
 }
 
-/*function onYouTubePlayerReady(playerId) {
-	var videoPlayer = document.getElementById("myytplayer"),
-		contentWidth = $(window).width();
-	if(contentWidth < 700){	
-		videoPlayer.setAttribute("width", "250");
-		videoPlayer.setAttribute("height", "141");
-	}
-	playVideo(videoPlayer);
-}*/
 
 function playVideo(){
 	var $play = $('#video .play'),
@@ -410,19 +412,19 @@ function fullScreenVideo(player){
 	} else if (container.mozRequestFullScreen) {
 	  	container.mozRequestFullScreen();
 	} else if (container.webkitRequestFullScreen) {
-	  	container.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+	  	container.webkitRequestFullScreen();
 	} else if (container.msRequestFullscreen) {
 		container.msRequestFullscreen();
 	}
-	player.setSize(videoWidth, videoHeight);
+	//player.setSize(videoWidth, videoHeight);
 	
-	window.addEventListener("keydown", function(){exitFullscreenVideo(container)}, true);
+	//window.addEventListener("keydown", function(){exitFullscreenVideo(container)}, true);
 }
 
 function exitFullscreenVideo(player){
 	var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
 	
-	if(!fullscreenElement){
+	if(fullscreenElement){
 		if (player.exitFullscreen) {
 		      player.exitFullscreen();
 		    } else if (player.msExitFullscreen) {
@@ -432,6 +434,6 @@ function exitFullscreenVideo(player){
 		    } else if (player.webkitExitFullscreen) {
 		      player.webkitExitFullscreen();
 		    }
-		player.setSize(549, 309);
+		//player.setSize(549, 309);
 	}
 }
