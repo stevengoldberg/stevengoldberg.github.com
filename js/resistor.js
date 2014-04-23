@@ -12,6 +12,7 @@ $(document).ready(function() {
 		});
 	});
 	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
+	$('.home').attr('mobile', 'true');
 	loadImages(); // Load images based on screen size
 	songPlayer(); // Load the music player
 	photoViewer(); // Load the photo viewer
@@ -24,8 +25,10 @@ function loadImages(){
 	var contentWidth = $(window).width(),
 		$responsiveImages = $('.home .responsive'),
 		mobile = $('.home').attr('mobile');
+	
+	
 		
-	if ((mobile == 'false' || !mobile) && (contentWidth < 700)){
+	if (!!mobile && (contentWidth < 700)){
     	$responsiveImages.each(function(){
         	var thisImg = $(this);
         	var newSrc = thisImg.attr('src').replace('large', 'small');
