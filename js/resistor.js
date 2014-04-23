@@ -419,7 +419,7 @@ function fullScreenVideo(player){
 	}
 	//player.setSize(videoWidth, videoHeight);
 	
-	//window.addEventListener("keydown", function(){exitFullscreenVideo(container)}, true);
+	window.addEventListener("keydown", function(){exitFullscreenVideo(container)}, true);
 }
 
 function exitFullscreenVideo(player){
