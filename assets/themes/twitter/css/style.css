@@ -506,7 +506,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	color:#e3d7b8;
 }
 
-#video object{
+#video iframe{
 	position:absolute;
 	top:75px;
 	left:75px;
@@ -522,27 +522,27 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	z-index:2;
 }
 
-#video object:-webkit-full-screen{
+#video iframe:-webkit-full-screen{
 	top:0;
 	left:0;
 }
 
-#video object:full-screen{
+#video iframe:full-screen{
 	top:0;
 	left:0;
 }
 
-#video object:fullscreen{
+#video iframe:fullscreen{
 	top:0;
 	left:0;
 }
 
-#video object:-ms-fullscreen{
+#video iframe:-ms-fullscreen{
 	top:0;
 	left:0;
 }
 
-#video object:-moz-full-screen{
+#video iframe:-moz-full-screen{
 	top:0;
 	left:0;
 }
@@ -738,7 +738,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		margin-right:auto;
 		position:relative;
 	}
-	#video object, #click-capture{
+	#video iframe, #click-capture{
 		top:33px;
 		left:35px;
 	}
@@ -754,13 +754,6 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	#video .play, #video .pause{
 		font-size:1.2em;
 		left:15%;
-	}
-	#narcissist{
-		position:absolute;
-		bottom:45%;
-		width:75%;
-		left:12%;
-		z-index:3;
 	}
 }
 
