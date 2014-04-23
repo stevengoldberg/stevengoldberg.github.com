@@ -379,8 +379,7 @@ function playVideo(){
 function onPlayerStateChange(newState){
 	var $play = $('#video .play'),
 		$pause = $('#video .pause'),
-		player = document.getElementById("myytplayer"),
-		played = false;
+		player = document.getElementById("myytplayer");
 		
 	switch(newState.data){
 	case 1:
@@ -394,7 +393,6 @@ function onPlayerStateChange(newState){
 	case 0:
 		$pause.hide();
 		$play.show();
-		played = false;
 		exitFullscreenVideo(player);
 		break;
 	}
@@ -405,10 +403,10 @@ function fullScreenVideo(player){
 		videoHeight = videoWidth / 16 * 9,
 		container = document.getElementById('narcissist');
 	
-	document.addEventListener("fullscreenchange", function(){exitFullscreenVideo(player)}, false);
+	/*document.addEventListener("fullscreenchange", function(){exitFullscreenVideo(player)}, false);
 	document.addEventListener("mozfullscreenchange", function(){exitFullscreenVideo(player)}, false);
 	document.addEventListener("webkitfullscreenchange", function(){exitFullscreenVideo(player)}, false);
-	document.addEventListener("msfullscreenchange", function(){exitFullscreenVideo(player)}, false);
+	document.addEventListener("msfullscreenchange", function(){exitFullscreenVideo(player)}, false);*/
 	
 	if (container.requestFullScreen) {
 	  	container.requestFullScreen();
@@ -428,14 +426,14 @@ function exitFullscreenVideo(player){
 	var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
 	
 	if(fullscreenElement){
-		if (player.exitFullscreen) {
-		      player.exitFullscreen();
-		    } else if (player.msExitFullscreen) {
-		      player.msExitFullscreen();
-		    } else if (player.mozCancelFullScreen) {
-		      player.mozCancelFullScreen();
-		    } else if (player.webkitExitFullscreen) {
-		      player.webkitExitFullscreen();
+		if (document.exitFullscreen) {
+		      document.exitFullscreen();
+		    } else if (document.msExitFullscreen) {
+		      document.msExitFullscreen();
+		    } else if (document.mozCancelFullScreen) {
+		      document.mozCancelFullScreen();
+		    } else if (document.webkitExitFullscreen) {
+		      document.webkitExitFullscreen();
 		    }
 		//player.setSize(549, 309);
 	}
