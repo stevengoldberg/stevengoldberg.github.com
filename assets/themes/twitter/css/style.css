@@ -500,10 +500,12 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 #video{
 	position:relative;
 	z-index:2;
+	pointer-events:none;
 }
 
 #video span a{
 	color:#e3d7b8;
+	pointer-events:auto;
 }
 
 #video iframe{
@@ -511,15 +513,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	top:75px;
 	left:75px;
 	z-index:-1;
-}
-
-#click-capture{
-	position:absolute;
-	top:75px;
-	left:75px;
-	height:309px;
-	width:549px;
-	z-index:2;
+	pointer-events:auto;
 }
 
 #video iframe:-webkit-full-screen{
@@ -738,13 +732,9 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		margin-right:auto;
 		position:relative;
 	}
-	#video iframe, #click-capture{
+	#video iframe{
 		top:33px;
 		left:35px;
-	}
-	#click-capture{
-		width:250px;
-		height:141px;
 	}
 	
 	#video .fullscreen{

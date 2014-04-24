@@ -327,7 +327,6 @@ function onYouTubeIframeAPIReady() {
 		playerVars: {
 			controls: 0,
 			modestbranding: 1,
-			playsinline: 1,
 			showinfo: 0,
 			rel: 0
 		},
@@ -341,9 +340,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event){
 	var mobile = ( navigator.userAgent.match(/(mobi)/gi) ? true : false );
 	if(mobile){
-		$('#click-capture').hide();
 		$('.fullscreen').hide();
-		$('#narcissist').css('z-index', 3);
 		$('#video .play').hide();
 	}
 	var	contentWidth = $(window).width();
@@ -357,9 +354,8 @@ function onPlayerReady(event){
 function playVideo(){
 	var $play = $('#video .play'),
 		$pause = $('#video .pause'),
-		$capture = $('#click-capture'),
 		$fullScreen = $('#video .fullscreen');
-	$play.add($capture).click(function(e){
+	$play.click(function(e){
 		e.preventDefault();
 		if(player.getPlayerState() == -1 || player.getPlayerState() == 0){
 			ga('send', 'event', 'Youtube', 'Play', "Narcissist Trailer");
