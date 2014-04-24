@@ -4,15 +4,14 @@ SC.initialize({										//Initialize soundcloud API
 });
 
 $(document).ready(function() {
-	numTweets = 20;
 	$('#RE').fadeTo(1000, 1, function(){	// Fade in the headline in 3 parts
 		$('#SIS').fadeTo(1000, 1, function(){
 			$('#TOR').fadeTo(1000, 1, function(){
 			});
 		});
 	});
-	twitterFetcher.fetch('438885011689713665', 'tweet', numTweets, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
-	$('.home').attr('mobile', 'true');
+	twitterFetcher.fetch('438885011689713665', 'tweet', 20, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
+	$('.home').attr('mobile', 'true'); // Default to mobile assets
 	loadImages(); // Load images based on screen size
 	songPlayer(); // Load the music player
 	photoViewer(); // Load the photo viewer
@@ -181,7 +180,8 @@ function changeTitle(newTrack, oldTrack){
 function handleTweets(tweets){
     var currentTweet = 0,
 		nextRotation = 0,
-		prevRotation = 0;
+		prevRotation = 0,
+		numTweets = tweets.length;
 	splitTweet(tweets[currentTweet]); // Print the current tweet
 	$('.nextTweet, .prevTweet').click(function(e){ //Rotate the knob, fade out the text, replace it with the next tweet in the list
 		e.preventDefault();
