@@ -28,9 +28,6 @@ span{
 	-webkit-transition:opacity 1s;
 }
 
-.widget a.responsive{
-	display:none;
-}
 
 .widget:last-of-type{
 	margin-bottom:30px;

@@ -1,13 +1,12 @@
 SC.initialize({										//Initialize soundcloud API
-   client_id: "67f2822a454cafa2b800fc88cb5c0518",
-   redirect_uri: 'http://resistorsings.com'
+	client_id: "67f2822a454cafa2b800fc88cb5c0518",
+	redirect_uri: 'http://resistorsings.com'
 });
 
 $(document).ready(function() {
 	$('#RE').fadeTo(1000, 1, function(){	// Fade in the headline in 3 parts
 		$('#SIS').fadeTo(1000, 1, function(){
-			$('#TOR').fadeTo(1000, 1, function(){
-			});
+			$('#TOR').fadeTo(1000, 1);
 		});
 	});
 	twitterFetcher.fetch('438885011689713665', 'tweet', 20, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
@@ -16,7 +15,13 @@ $(document).ready(function() {
 	songPlayer(); // Load the music player
 	showDates(); // Load the show dates 
 	loadImages(); // Load images based on screen size
-	$(window).width() > 700 ? $('.home').attr('mobile', 'false') : $('.home').attr('mobile', 'true');
+	
+	if ($(window).width() > 700){
+		$('.home').attr('mobile', 'false');
+	}
+	else{
+		$('.home').attr('mobile', 'true');
+	}
 	$(window).resize(resizeImages);
 });
 
@@ -24,6 +29,7 @@ function loadImages(){
 	var $imageSrc = $('.widget').children('a').filter('.responsive'),
 		numImages = $imageSrc.length,
 		contentWidth = $(window).width(),
+		altTitle,
 		imageArray = [];
 
 	for(var i=0; i<numImages; i++){
@@ -34,11 +40,18 @@ function loadImages(){
 		else{
 			imageArray[i].src = $imageSrc[i].href;
 		}
-		imageArray[i].title = $imageSrc[i].title;
+		altTitle = $imageSrc[i].title.split(". ");
+		imageArray[i].title = altTitle[1];
+		imageArray[i].alt = altTitle[0];
 		imageArray[i].className = $imageSrc[i].className;
 		$imageSrc[i].parentNode.replaceChild(imageArray[i], $imageSrc[i]);
-		imageArray[i].addEventListener("load", function() {
-			this.parentNode.id == "soundcloud" ? this.parentNode.style.opacity = .85 : this.parentNode.style.opacity = 1;
+		imageArray[i].addEventListener("load", function(){
+			if(this.parentNode.id === "soundcloud"){
+				this.parentNode.style.opacity = 0.85;
+			}
+			else{
+				this.parentNode.style.opacity = 1;
+			}
 		}, false);
 	}
 }
@@ -110,7 +123,7 @@ function songPlayer(){
 			},
 		    changeIndex: function(direction){
 				song.stop();
-				if(direction=="forward"){
+				if(direction === "forward"){
 					trackIndex = (trackIndex + 1) % songs.length;
 					nextRotation += 40;
 					$nextKnob.css('transform','rotate(' + nextRotation + 'deg)');
@@ -206,7 +219,7 @@ function handleTweets(tweets){
 	splitTweet(tweets[currentTweet]); // Print the current tweet
 	$('.nextTweet, .prevTweet').click(function(e){ //Rotate the knob, fade out the text, replace it with the next tweet in the list
 		e.preventDefault();
-		if((e.currentTarget.classList[1]) == ('nextTweet')){
+		if((e.currentTarget.classList[1]) === ('nextTweet')){
 			nextRotation += 40;
 			currentTweet = (currentTweet + 1) % numTweets;
 			$(this).css('transform','rotate(' + nextRotation + 'deg)');
@@ -385,7 +398,7 @@ function playVideo(){
 		$fullScreen = $('#video .fullscreen');
 	$play.click(function(e){
 		e.preventDefault();
-		if(player.getPlayerState() == -1 || player.getPlayerState() == 0){
+		if(player.getPlayerState() === -1 || player.getPlayerState() === 0){
 			ga('send', 'event', 'Youtube', 'Play', "Narcissist Trailer");
 		}
 		player.playVideo();
