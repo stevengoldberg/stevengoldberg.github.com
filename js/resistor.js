@@ -22,11 +22,9 @@ $(document).ready(function() {
 
 function loadImages(){
 	var contentWidth = $(window).width(),
-		$responsiveImages = $('.home .responsive'),
+		$responsiveImages = $('.home').children(".widget").children(".responsive"),
 		mobile = $('.home').attr('mobile');
 	
-	
-		
 	if (!!mobile && (contentWidth < 700)){
     	$responsiveImages.each(function(){
         	var thisImg = $(this);
@@ -320,9 +318,18 @@ function loadVideo(){
 	
 var player;
 function onYouTubeIframeAPIReady() {
+	var windowWidth = $(window).width(),
+		playerWidth = 549,
+		playerHeight = 309;
+		
+	if (windowWidth < 700){
+		playerWidth = 250;
+		playerHeight = 141;
+	}
+	
 	player = new YT.Player('narcissist', {
-		width: '549',
-		height: '309',
+		width: playerWidth,
+		height: playerHeight,
 		videoId: 'ToJSB43V_JU',
 		playerVars: {
 			controls: 0,
@@ -342,10 +349,6 @@ function onPlayerReady(event){
 	if(mobile){
 		$('.fullscreen').hide();
 		$('#video .play').hide();
-	}
-	var	contentWidth = $(window).width();
-	if(contentWidth < 700){	
-		player.setSize(250, 141);
 	}
 	playVideo();
 }
@@ -394,11 +397,8 @@ function onPlayerStateChange(newState){
 	}
 }
 
-function fullScreenVideo(player){
-	var videoWidth = screen.width,
-		videoHeight = videoWidth / 16 * 9,
-		container = document.getElementById('narcissist');
-	
+function fullScreenVideo(){
+	var container = document.getElementById('narcissist');	
 	
 	if (container.requestFullScreen) {
 	  	container.requestFullScreen();
@@ -409,8 +409,6 @@ function fullScreenVideo(player){
 	} else if (container.msRequestFullscreen) {
 		container.msRequestFullscreen();
 	}
-	
-	window.addEventListener("keydown", exitFullscreenVideo, true);
 }
 
 function exitFullscreenVideo(){
