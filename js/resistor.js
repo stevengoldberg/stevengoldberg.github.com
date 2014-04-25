@@ -51,12 +51,12 @@ function loadImages(){
 
 function songPlayer(){
 	var	$soundcloud = $('#soundcloud'),
-		$nextKnob = $('.knob.nextSong'),
-		$prevKnob = $('.knob.prevSong'),
+		$nextKnob = $('.knob').filter('.nextSong'),
+		$prevKnob = $('.knob').filter('.prevSong'),
 		$nextSong = $('.nextSong'),
 		$prevSong = $('.prevSong'),
-		$pause = $('#soundcloud .pause'),
-		$play = $('#soundcloud .play'),
+		$pause = $('#soundcloud').children('.pause'),
+		$play = $('#soundcloud').children('.play'),
 		$button = $('.button'),
 		nextRotation = 0,
 		prevRotation = 0;
@@ -231,8 +231,8 @@ function addPhotos(photos){
 function rotatePhotos(){
 	$('.nextPhoto').click(function(e){
 		e.preventDefault();
-		var $active = $('#photoContainer a img.active'),
-			$next = ($active.parent().next().length > 0) ? $active.parent().next().contents() : $('#photoContainer a:first img');
+		var $active = $('#photoContainer').children('a').children('img').filter('.active'),
+			$next = ($active.parent().next().length > 0) ? $active.parent().next().contents() : $('#photoContainer').children('a').first().children('img');
 		$next.css('z-index',2);
 		$active.fadeOut(750,function(){
 			$active.css('z-index',1).show().removeClass('active');
@@ -241,8 +241,8 @@ function rotatePhotos(){
 	});
 	$('.prevPhoto').click(function(e){
 		e.preventDefault();
-		var $active = $('#photoContainer a img.active'),
-			$prev = ($active.parent().prev().length > 0) ? $active.parent().prev().contents() : $('#photoContainer a:last img');
+		var $active = $('#photoContainer').children('a').children('img').filter('.active'),
+			$prev = ($active.parent().prev().length > 0) ? $active.parent().prev().contents() : $('#photoContainer').children('a').last().children('img');
 		$prev.css('z-index',2);
 		$active.fadeOut(750,function(){
 			$active.css('z-index',1).show().removeClass('active');
@@ -265,18 +265,18 @@ function showDates(){
 					upcomingShows++;
 					if(data.shows[i].url)
 					{
-						$("#upcoming_dates ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>");
+						$("#upcoming_dates").children("ul").append("<li>" + data.shows[i].date + " - " + "<a href=\"http://" + data.shows[i].url + "\"" + 'onclick=\"ga(\'send\', \'event\', \'live\', \'' + data.shows[i].date + '\');">' + data.shows[i].venue + "</a>" + " - " + data.shows[i].city + "</li>");
 					}
 					else{
-						$("#upcoming_dates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
+						$("#upcoming_dates").children("ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
 					}
 				}
 				else{
-					$("#past_dates ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
+					$("#past_dates").children("ul").append("<li>" + data.shows[i].date + " - " + data.shows[i].venue + " - " + data.shows[i].city + "</li>");
 				}
 			}
 			if(upcomingShows === 0){
-				$("#upcoming_dates ul").append("<li>" + "Shows TBD ... Check back soon ..." + "</li>");
+				$("#upcoming_dates").children("ul").append("<li>" + "Shows TBD ... Check back soon ..." + "</li>");
 			}
 		})
 		.fail(function (jqxhr, textStatus, error ) {
@@ -327,6 +327,12 @@ function onYouTubeIframeAPIReady() {
 		playerHeight = 141;
 	}
 	
+	var mobile = ( navigator.userAgent.match(/(mobi)/gi) ? true : false );
+	if(mobile){
+		$('.fullscreen').hide();
+		$('#video').children('.play').hide();
+	}
+	
 	player = new YT.Player('narcissist', {
 		width: playerWidth,
 		height: playerHeight,
@@ -345,18 +351,13 @@ function onYouTubeIframeAPIReady() {
 }
 	
 function onPlayerReady(event){
-	var mobile = ( navigator.userAgent.match(/(mobi)/gi) ? true : false );
-	if(mobile){
-		$('.fullscreen').hide();
-		$('#video .play').hide();
-	}
 	playVideo();
 }
 
 
 function playVideo(){
-	var $play = $('#video .play'),
-		$pause = $('#video .pause'),
+	var $play = $('#video').children('.play'),
+		$pause = $('#video').children('.pause'),
 		$fullScreen = $('#video .fullscreen');
 	$play.click(function(e){
 		e.preventDefault();
@@ -376,9 +377,8 @@ function playVideo(){
 }
 
 function onPlayerStateChange(newState){
-	var $play = $('#video .play'),
-		$pause = $('#video .pause'),
-		player = document.getElementById("myytplayer");
+	var $play = $('#video').children('.play'),
+		$pause = $('#video').children('.pause');
 		
 	switch(newState.data){
 	case 1:
