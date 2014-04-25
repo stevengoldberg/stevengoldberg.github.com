@@ -370,7 +370,7 @@ function onYouTubeIframeAPIReady() {
 	player = new YT.Player('narcissist', {
 		width: playerWidth,
 		height: playerHeight,
-		videoId: 'ToJSB43V_JU',
+		videoId: 'abGPBUadggA',
 		playerVars: {
 			controls: 0,
 			modestbranding: 1,
@@ -396,7 +396,7 @@ function playVideo(){
 	$play.click(function(e){
 		e.preventDefault();
 		if(player.getPlayerState() === -1 || player.getPlayerState() === 0){
-			ga('send', 'event', 'Youtube', 'Play', "Narcissist Trailer");
+			ga('send', 'event', 'Youtube', 'Play', "Narcissist");
 		}
 		player.playVideo();
 	});
