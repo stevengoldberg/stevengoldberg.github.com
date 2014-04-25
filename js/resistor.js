@@ -37,10 +37,10 @@ function loadImages(){
 		imageArray[i].title = $imageSrc[i].title;
 		imageArray[i].className = $imageSrc[i].className;
 		$imageSrc[i].parentNode.replaceChild(imageArray[i], $imageSrc[i]);
+		imageArray[i].addEventListener("load", function() {
+			this.parentNode.id == "soundcloud" ? this.parentNode.style.opacity = .85 : this.parentNode.style.opacity = 1;
+		}, false);
 	}
-	
-	$('.widget').not('#soundcloud').css('opacity','1');
-	$('#soundcloud').css('opacity', '.85');
 }
 
 function resizeImages(){
