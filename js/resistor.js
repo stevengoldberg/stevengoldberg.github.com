@@ -11,11 +11,11 @@ $(document).ready(function() {
 		});
 	});
 	twitterFetcher.fetch('438885011689713665', 'tweet', 20, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
-	loadImages(); // Load images based on screen size
-	songPlayer(); // Load the music player
-	photoViewer(); // Load the photo viewer
-	showDates(); // Load the show dates 
 	loadVideo(); // Load the video player
+	photoViewer(); // Load the photo viewer
+	songPlayer(); // Load the music player
+	showDates(); // Load the show dates 
+	loadImages(); // Load images based on screen size
 	$(window).width() > 700 ? $('.home').attr('mobile', 'false') : $('.home').attr('mobile', 'true');
 	$(window).resize(resizeImages);
 });
@@ -48,7 +48,7 @@ function resizeImages(){
 		$responsiveImages = $('.home').children(".widget").children(".responsive"),
 		mobile = $('.home').attr('mobile');
 	
-	if (!!mobile && (contentWidth < 700)){
+	if ((contentWidth < 700) && !!mobile){
     	$responsiveImages.each(function(){
         	var thisImg = $(this);
         	var newSrc = thisImg.attr('src').replace('large', 'small');
@@ -59,7 +59,7 @@ function resizeImages(){
 			}
         });
     }
-	else if(mobile && (contentWidth > 700)){
+	else if((contentWidth > 700) && mobile){
     	$responsiveImages.each(function(){
         	var thisImg = $(this);
         	var newSrc = thisImg.attr('src').replace('small', 'large');
