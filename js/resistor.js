@@ -17,10 +17,10 @@ $(document).ready(function() {
 	loadImages(); // Load images based on screen size
 	
 	if ($(window).width() > 700){
-		$('.home').attr('mobile', 'false');
+		$('.home').data('mobile', false);
 	}
 	else{
-		$('.home').attr('mobile', 'true');
+		$('.home').data('mobile', true);
 	}
 	$(window).resize(resizeImages);
 });
@@ -59,30 +59,30 @@ function loadImages(){
 function resizeImages(){
 	var contentWidth = $(window).width(),
 		$responsiveImages = $('.home').children(".widget").children(".responsive"),
-		mobile = $('.home').attr('mobile');
+		mobile = $('.home').data('mobile');
 	
-	if ((contentWidth < 700) && !!mobile){
+	if ((contentWidth < 700) && (mobile === false)){
     	$responsiveImages.each(function(){
         	var thisImg = $(this);
         	var newSrc = thisImg.attr('src').replace('large', 'small');
         	thisImg.attr('src', newSrc);
-			$('.home').attr('mobile', 'true');
+			$('.home').data('mobile', true);
 			if(player){
 				player.setSize(250, 141);
 			}
-        });
+		});
     }
-	else if((contentWidth > 700) && mobile){
+	else if((contentWidth > 700) && (mobile === true)){
     	$responsiveImages.each(function(){
         	var thisImg = $(this);
         	var newSrc = thisImg.attr('src').replace('small', 'large');
         	thisImg.attr('src', newSrc);
-			$('.home').attr('mobile', 'false');
+			$('.home').data('mobile', false);
 			if(player){	
 				player.setSize(549, 309);
 			}
-        });
-	} 
+		});
+	}
 }
 
 function songPlayer(){
@@ -158,13 +158,13 @@ function songPlayer(){
 					}
 				});
 		    },
-		    pause: function() {
+		    pause: function(){
 		        song.togglePause();
 				$soundcloud.addClass('paused').removeClass('playing');
 				$pause.hide();
 				$play.show();
 		    },
-		    stop: function() {
+		    stop: function(){
 		        song.stop();
 		    }
 		};
@@ -340,7 +340,7 @@ function typewriter(element, string, speed){
 	var	intObject = setInterval(function() {
 		target.innerHTML+=string[index];
 		index++;
-		if(index==string.length){
+		if(index===string.length){
 			clearInterval(intObject);
 		}
 	}, speed);
