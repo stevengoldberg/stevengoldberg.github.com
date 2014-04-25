@@ -11,16 +11,39 @@ $(document).ready(function() {
 		});
 	});
 	twitterFetcher.fetch('438885011689713665', 'tweet', 20, true, false, true, undefined, true, handleTweets); // Fetch the last 20 tweets
-	$('.home').attr('mobile', 'true'); // Default to mobile assets
 	loadImages(); // Load images based on screen size
 	songPlayer(); // Load the music player
 	photoViewer(); // Load the photo viewer
 	showDates(); // Load the show dates 
 	loadVideo(); // Load the video player
-	$(window).resize(loadImages);
+	$(window).width() > 700 ? $('.home').attr('mobile', 'false') : $('.home').attr('mobile', 'true');
+	$(window).resize(resizeImages);
 });
 
 function loadImages(){
+	var $imageSrc = $('.widget').children('a').filter('.responsive'),
+		numImages = $imageSrc.length,
+		contentWidth = $(window).width(),
+		imageArray = [];
+
+	for(var i=0; i<numImages; i++){
+		imageArray[i] = new Image();
+		if(contentWidth > 700){
+			imageArray[i].src = $imageSrc[i].href.replace("small", "large");
+		}
+		else{
+			imageArray[i].src = $imageSrc[i].href;
+		}
+		imageArray[i].title = $imageSrc[i].title;
+		imageArray[i].className = $imageSrc[i].className;
+		$imageSrc[i].parentNode.replaceChild(imageArray[i], $imageSrc[i]);
+	}
+	
+	$('.widget').not('#soundcloud').css('opacity','1');
+	$('#soundcloud').css('opacity', '.85');
+}
+
+function resizeImages(){
 	var contentWidth = $(window).width(),
 		$responsiveImages = $('.home').children(".widget").children(".responsive"),
 		mobile = $('.home').attr('mobile');
@@ -299,9 +322,10 @@ function isUpcoming(show){
 }
 
 function typewriter(element, string, speed){
-	var index = 0;
+	var index = 0,
+		target = document.getElementById(element);
 	var	intObject = setInterval(function() {
-		document.getElementById(element).innerHTML+=string[index];
+		target.innerHTML+=string[index];
 		index++;
 		if(index==string.length){
 			clearInterval(intObject);

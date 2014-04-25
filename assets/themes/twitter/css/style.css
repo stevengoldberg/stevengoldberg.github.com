@@ -23,6 +23,13 @@ span{
 	margin:20px 8px;
 	max-width:700px;
 	position:relative;
+	opacity:0;
+	transition:opacity 1s;
+	-webkit-transition:opacity 1s;
+}
+
+.widget a.responsive{
+	display:none;
 }
 
 .widget:last-of-type{
@@ -248,12 +255,6 @@ a.twitter_retweet_icon:hover:after{
 }
 
 /* Soundcloud Widget */
-
-#soundcloud{
-	opacity:.85;
-	transition: opacity .6s;
-	-webkit-transition: opacity .6s;
-}
 
 .playing{
 	opacity:1 !important;
@@ -653,14 +654,6 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	}
 	
 	/* Live Dates */
-	
-	#printer{
-		display:block;
-		margin-left:auto;
-		margin-right:auto;
-		width:320px;
-		margin-bottom:20px;
-	}
 	
 	#upcoming_dates{
 		width:100%;
