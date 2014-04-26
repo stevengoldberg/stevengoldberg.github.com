@@ -261,7 +261,7 @@ a.twitter_retweet_icon:hover:after{
 	width:76%;
 	height:10%;
 	left:14%;
-	bottom:22.5%;
+	bottom:22%;
 	position:absolute;
 }
 
@@ -305,12 +305,12 @@ a.twitter_retweet_icon:hover:after{
 	transition: all .2s ease;
 }
 
-.knob.prevSong{
+.knob.prev-song{
 	left:30.5%;
 	bottom:35%;
 }
 
-.knob.nextSong{
+.knob.next-song{
 	left:85%;
 	bottom:35.5%;
 }
@@ -334,11 +334,11 @@ a.twitter_retweet_icon:hover:after{
 	display:none;
 }
 
-#soundcloud span.prevSong{
+#soundcloud span.prev-song{
 	left:28%;
 }
 
-#soundcloud span.nextSong{
+#soundcloud span.next-song{
 	left:84%;
 }
 
@@ -620,7 +620,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		display:inline;
 	}
 	#progress_container{
-		bottom:31%;
+		bottom:30%;
 	}
 	
 	#soundcloud img.knob{

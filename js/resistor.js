@@ -87,13 +87,8 @@ function resizeImages(){
 
 function songPlayer(){
 	var	$soundcloud = $('#soundcloud'),
-		$nextKnob = $('.knob').filter('.nextSong'),
-		$prevKnob = $('.knob').filter('.prevSong'),
-		$nextSong = $('.nextSong'),
-		$prevSong = $('.prevSong'),
-		$pause = $('#soundcloud').children('.pause'),
-		$play = $('#soundcloud').children('.play'),
-		$button = $('.button'),
+		$nextKnob = $('.knob').filter('.next-song'),
+		$prevKnob = $('.knob').filter('.prev-song'),
 		nextRotation = 0,
 		prevRotation = 0;
 	SC.get('/users/11021442/tracks', function(songs){
@@ -102,7 +97,9 @@ function songPlayer(){
 			var trackIndex,
 			song = {},
 			currentTrack = {},
-			title = "";
+			title = "",
+			$pause = $soundcloud.children('.pause'),
+			$play = $soundcloud.children('.play');
 			//initialization
 			trackIndex = 1;
 			currentTrack = songs[trackIndex];
@@ -162,7 +159,7 @@ function songPlayer(){
 		        song.togglePause();
 				$soundcloud.addClass('paused').removeClass('playing');
 				$pause.hide();
-				$play.show();
+				$play.css('display', 'inline-block');
 		    },
 		    stop: function(){
 		        song.stop();
@@ -171,23 +168,23 @@ function songPlayer(){
 	}();
 		
 		rotation.newSong(false);
-		$play.on('click', function(e){
+		$soundcloud.on('click', ".play", function(e){
 			e.preventDefault();
 			rotation.play();
 		});
-		$pause.on('click', function(e){
+		$soundcloud.on('click', ".pause", function(e){
 			e.preventDefault();
 			rotation.pause();
 		});
-		$nextSong.on('click', function(e){
+		$soundcloud.on('click', ".next-song", function(e){
 			e.preventDefault();
 			rotation.changeIndex("forward");
 		});
-		$prevSong.on('click', function(e){
+		$soundcloud.on('click', ".prev-song", function(e){
 			e.preventDefault();
 			rotation.changeIndex();
 		});
-		$button.on('click', function(e){
+		$soundcloud.on('click', ".button", function(e){
 			e.preventDefault();
 			if($soundcloud.hasClass('playing')){
 				rotation.pause();
