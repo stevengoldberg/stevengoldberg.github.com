@@ -261,7 +261,7 @@ a.twitter_retweet_icon:hover:after{
 	width:76%;
 	height:10%;
 	left:14%;
-	bottom:22%;
+	bottom:22.5%;
 	position:absolute;
 }
 
@@ -620,7 +620,7 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 		display:inline;
 	}
 	#progress_container{
-		bottom:30%;
+		bottom:31%;
 	}
 	
 	#soundcloud img.knob{

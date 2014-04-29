@@ -101,7 +101,7 @@ function songPlayer(){
 			$pause = $soundcloud.children('.pause'),
 			$play = $soundcloud.children('.play');
 			//initialization
-			trackIndex = 1;
+			trackIndex = 0;
 			currentTrack = songs[trackIndex];
 			title = currentTrack.title;
 			//public interface	
