@@ -539,6 +539,40 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 	z-index:3;
 }
 
+/* First World Problems */
+
+#onlinestores {
+    display:none;
+}
+
+#first-world-problems img {
+    opacity: .9;
+    transition: opacity .2s linear;
+    -ms-transition: opacity .2s linear;
+    -webkit-transition: opacity .2s linear;
+    -moz-transition: opacity .2s linear;
+    cursor: pointer;
+}
+
+#first-world-problems img:hover{
+    opacity:1;
+}
+
+.ui-dialog-content {
+    font-family:audiowide;
+    font-size:1.2em;
+    text-align:center;
+}
+
+.ui-widget-overlay {
+    background: #000;
+    opacity: 0.5;
+    transition: opacity .2s linear;
+    -ms-transition: opacity .2s linear;
+    -webkit-transition: opacity .2s linear;
+    -moz-transition: opacity .2s linear;
+}
+
 /* Small Screens */
 
 @media screen and (max-width:700px){
@@ -681,6 +715,12 @@ img.prevPhoto:hover, img.nextPhoto:hover{
 }
 
 /* Large Screens */
+
+@media screen and (min-width:701px){
+    .widget{
+        width:700px;
+    }
+}
 
 @media screen and (min-width:1440px){	
 	.container{

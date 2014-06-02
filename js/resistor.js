@@ -23,6 +23,16 @@ $(document).ready(function() {
 		$('.home').data('mobile', true);
 	}
 	$(window).resize(resizeImages);
+    $('#first-world-problems').on("click", "img", function() {
+        $('#onlinestores').dialog({
+            title: "FIRST WORLD PROBLEMS",
+            height: "auto",
+            modal: true,
+            resizable: false,
+            hide: "slideUp",
+            show: "slideDown"
+        });
+    });
 });
 
 function loadImages(){
