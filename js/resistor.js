@@ -36,7 +36,7 @@ $(document).ready(function() {
 });
 
 function loadImages(){
-	var $imageSrc = $('.widget').children('a').filter('.responsive'),
+	var $imageSrc = $('.responsive'),
 		numImages = $imageSrc.length,
 		contentWidth = $(window).width(),
 		altTitle,
@@ -68,13 +68,16 @@ function loadImages(){
 
 function resizeImages(){
 	var contentWidth = $(window).width(),
-		$responsiveImages = $('.home').children(".widget").children(".responsive"),
-		mobile = $('.home').data('mobile');
+		$responsiveImages = $(".responsive"),
+		mobile = $('.home').data('mobile'),
+        newSrc,
+        thisImg;
+        
 	
 	if ((contentWidth < 700) && (mobile === false)){
-    	$responsiveImages.each(function(){
-        	var thisImg = $(this);
-        	var newSrc = thisImg.attr('src').replace('large', 'small');
+    	$responsiveImages.each(function(){ 
+            thisImg = $(this);
+            newSrc = thisImg.attr('src').replace('large', 'small');
         	thisImg.attr('src', newSrc);
 			$('.home').data('mobile', true);
 			if(player){
@@ -84,8 +87,8 @@ function resizeImages(){
     }
 	else if((contentWidth > 700) && (mobile === true)){
     	$responsiveImages.each(function(){
-        	var thisImg = $(this);
-        	var newSrc = thisImg.attr('src').replace('small', 'large');
+        	thisImg = $(this);
+            newSrc = thisImg.attr('src').replace('small', 'large');
         	thisImg.attr('src', newSrc);
 			$('.home').data('mobile', false);
 			if(player){	
@@ -297,7 +300,6 @@ function rotatePhotos(){
 function showDates(){
 	var printed = false,
 		upcomingShows = 0;
-	//$('#live').watch('opacity', function(){	
 	if(!printed){	
 		$.getJSON('shows.json')
 		.success(function(data){
