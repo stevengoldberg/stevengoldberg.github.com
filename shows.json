@@ -1,6 +1,13 @@
 {
 	"shows": [
 		{
+			"date": "07/29/2014",
+			"venue": "Silk City",
+			"city": "Philly",
+			"with": ["Lapses", "Skeleton Lipstick"],
+			"url": "www.facebook.com/events/698500193557221/"
+		},
+		{
 			"date": "03/24/2014",
 			"venue": "Boot and Saddle",
 			"city": "Philly",
