@@ -1,6 +1,12 @@
 {
 	"shows": [
 		{
+			"date": "09/16/2014",
+			"venue": "Kung Fu Necktie",
+			"city": "Philly",
+			"with": ["Love Inks"]
+		},
+		{
 			"date": "07/29/2014",
 			"venue": "Silk City",
 			"city": "Philly",
