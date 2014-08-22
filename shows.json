@@ -1,6 +1,12 @@
 {
 	"shows": [
 		{
+			"date": "09/27/2014",
+			"venue": "PhilaMOCA (ERASERHOOD FOREVER)",
+			"city": "Philly",
+			"url": "www.philamoca.org/"
+		},
+		{
 			"date": "09/16/2014",
 			"venue": "Kung Fu Necktie",
 			"city": "Philly",
