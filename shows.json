@@ -1,6 +1,13 @@
 {
 	"shows": [
 		{
+			"date": "10/22/2014",
+			"venue": "Bourbon & Branch",
+			"city": "Philly",
+			"with": ["Flavor Raid", "Telequanta"],
+			"url": "www.facebook.com/events/544988188964437/"
+		},
+		{
 			"date": "09/27/2014",
 			"venue": "PhilaMOCA (ERASERHOOD FOREVER)",
 			"city": "Philly",
