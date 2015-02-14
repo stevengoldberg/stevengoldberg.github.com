@@ -1,5 +1,11 @@
 {
 	"shows": [
+		{	"date": "3/11/2015",
+			"venue": "Kung Fu Necktie",
+			"city":	"Philly",
+			"with":	["Heat", "Mt. Billions"],
+			"url": "kungfunecktie.com/calendarLB.php?thisID=3512"
+		},
 		{
 			"date": "2/28/2015",
 			"venue": "Ortlieb's",
