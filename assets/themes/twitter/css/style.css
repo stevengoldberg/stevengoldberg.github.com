@@ -193,7 +193,7 @@ p.timePosted{
 }
 
 .twitter-follow-button{
-	position:absolute;
+	position:absolute !important;
 	left:50%;
 	top:52%;
 	-webkit-box-shadow:-1px 1px 1px 1px #684235;
